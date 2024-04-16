@@ -80,24 +80,7 @@
       <main>
         {% include "admin/components/header.html.twig" %}
         <section class="container-fluid container-xxl">
-          <div class="breadcrumb">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb breadcrumb-chevron p-2 bg-body-tertiary rounded-3">
-                <li class="breadcrumb-item">
-                  <a class="link-body-emphasis" href="#">
-                    <i class="bi bi-house-door-fill"></i>
-                    <span class="visually-hidden">Home</span>
-                  </a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">Library</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                  Data
-                </li>
-              </ol>
-            </nav>
-          </div>
+          {% include "admin/components/breadcrumb.html.twig" %}
           <div class="alert alert-danger">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus deserunt a quis atque sint pariatur aperiam obcaecati soluta commodi cum laudantium quos adipisci beatae fuga, modi delectus ut nam magnam.
           </div>
