@@ -25,7 +25,7 @@ class BreadcrumbGenerator
     {
 
         return '<nav style="--bs-breadcrumb-divider: \'' . $this->breadcrumb->getSeparator() . '\';" aria-label="breadcrumb">
-            <ol class="breadcrumb">';
+            <ol class="breadcrumb breadcrumb-chevron p-2 text-bg-light rounded-3">';
     }
 
     /**
@@ -50,7 +50,7 @@ class BreadcrumbGenerator
     {
         $active = $isActive ? ' active" aria-current="page' : '';
         $html = '<li class="breadcrumb-item' . $active . '">';
-        $html .= $isActive || is_null($item->getLink()) ? $item->getName() : '<a href="' . $item->getLink() . '">' . $item->getName() . '</a>';
+        $html .= $isActive || is_null($item->getLink()) ? $item->getName() : '<a class="link-body-emphasis fw-semibold text-decoration-none" href="' . $item->getLink() . '">' . $item->getName() . '</a>';
 
         return $html . '</li>';
     }
@@ -83,11 +83,13 @@ class BreadcrumbGenerator
         if ($this->breadcrumb->getHomePage()) {
             if (str_starts_with($path, '/admin')) {
                 $route = '/admin';
+                $label = '<i class="bi bi-house-door-fill"></i> <span class="visually-hidden">Accueil</span>';
             } else {
                 $route = '/';
+                $label = 'Accueil';
             }
 
-            $this->breadcrumb->addItem(new BreadcrumbItem('Accueil', $route));
+            $this->breadcrumb->addItem(new BreadcrumbItem($label, $route));
         }
         $lastKey = $this->lastKey($this->breadcrumb->getItems());
 
