@@ -1,0 +1,81 @@
+/*
+ * Custom CSS
+ */
+
+:root {
+}
+
+/* Sidebar CSS */
+body {
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  min-height: -webkit-fill-available;
+  display: grid;
+  grid-template-columns: 280px auto;
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 70px auto 40px;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #f8fafc;
+}
+
+section {
+}
+
+footer {
+}
+
+.dropdown-toggle {
+  outline: 0;
+}
+
+.btn-toggle {
+  padding: 0.25rem 0.5rem;
+  font-weight: 600;
+  color: var(--bs-emphasis-color);
+  background-color: transparent;
+}
+
+.btn-toggle.active,
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: rgba(var(--bs-emphasis-color-rgb), 0.85);
+  background-color: var(--bs-tertiary-bg);
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: rgba(var(--bs-emphasis-color-rgb), 0.85);
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  padding: 0.1875rem 0.5rem;
+  margin-top: 0.125rem;
+  margin-left: 1.25rem;
+}
+
+.btn-toggle-nav a.active,
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  background-color: var(--bs-tertiary-bg);
+}
