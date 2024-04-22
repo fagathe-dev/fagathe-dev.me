@@ -4,9 +4,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Experience;
 use App\Entity\Skill;
-use App\Enum\User\LevelSkillEnum;
-use App\Enum\User\TypeExperienceEnum;
-use App\Enum\User\TypeSkillEnum;
+use App\Entity\TrackingEvent;
+use App\Enum\EventEnum;
+use App\Enum\LevelSkillEnum;
+use App\Enum\TypeExperienceEnum;
+use App\Enum\TypeSkillEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -24,6 +26,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($skill);
         }
+
         foreach ($this->getExperiences() as $xp) {
             $experience = new Experience;
 
@@ -35,6 +38,17 @@ class AppFixtures extends Fixture
                 ->setTasks($xp['tasks']);
 
             $manager->persist($experience);
+        }
+
+        foreach ($this->getEvents() as $evt) {
+            $event = new TrackingEvent;
+
+            $event->setPage($evt['page'])
+                ->setType($evt['type'])
+                ->setNbRequest($evt['nbRequest'])
+                ->setCode($evt['code']);
+
+            $manager->persist($event);
         }
 
         $manager->flush();
@@ -229,6 +243,33 @@ class AppFixtures extends Fixture
                     'Wordpress',
                     'Symfony niveau intermédiaire'
                 ]
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getEvents(): array
+    {
+        return [
+            [
+                'type' => EventEnum::TYPE_BACKLINK,
+                'page' => '/',
+                'nbRequest' => random_int(0, 100),
+                'code' => 'HOME_' . EventEnum::TYPE_BACKLINK . '_LINKEDIN',
+            ],
+            [
+                'type' => EventEnum::TYPE_REDIRECTION,
+                'page' => '/',
+                'nbRequest' => random_int(0, 100),
+                'code' => 'HOME_' . EventEnum::TYPE_REDIRECTION . '_CONTACT_FORM',
+            ],
+            [
+                'type' => EventEnum::TYPE_CTA,
+                'page' => '/',
+                'nbRequest' => random_int(0, 100),
+                'code' => 'HOME_' . EventEnum::TYPE_CTA . '_CONTACT_FORM',
             ],
         ];
     }

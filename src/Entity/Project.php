@@ -25,6 +25,9 @@ class Project
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $image = null;
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -130,6 +133,26 @@ class Project
                 $tag->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of image
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set the value of image
+     *
+     * @return  self
+     */
+    public function setImage($image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

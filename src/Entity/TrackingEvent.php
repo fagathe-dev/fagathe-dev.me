@@ -18,7 +18,7 @@ class TrackingEvent
     #[ORM\Column(length: 50)]
     private ?string $type = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 60)]
     private ?string $code = null;
 
     #[ORM\Column(length: 50)]
