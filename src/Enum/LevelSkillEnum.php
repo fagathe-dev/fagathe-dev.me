@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Enum\User;
+namespace App\Enum;
 
-use App\Entity\User;
 use App\Enum\EnumInterface;
 
 final class LevelSkillEnum implements EnumInterface

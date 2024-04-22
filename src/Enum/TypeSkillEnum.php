@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Enum\User;
-
-use App\Entity\User;
+namespace App\Enum;
 use App\Enum\EnumInterface;
 
 final class TypeSkillEnum implements EnumInterface
