@@ -4,6 +4,8 @@ namespace App\DataFixtures;
 
 use App\Entity\Experience;
 use App\Entity\Project;
+use App\Entity\Seo;
+use App\Entity\SeoTag;
 use App\Entity\Skill;
 use App\Entity\TrackingEvent;
 use App\Enum\EventEnum;
@@ -68,9 +70,31 @@ class AppFixtures extends Fixture
                 ->setCreatedAt($p['createdAt'])
                 ->setUpdatedAt($this->setDateTimeAfter($project->getCreatedAt()))
                 ->setImage($p['image']);
-                
+
             $manager->persist($project);
         }
+
+        $seo = new Seo;
+        $seo->setTitle('Mon porfolio développeur Web, Frédérick AGATHE')
+            ->setName('Page d\'accueil')
+            ->setUrl('/')
+            ->addTag((new SeoTag)
+                    ->setName('description')
+                    ->setAttribute('name')
+                    ->setContent('CV développeur Web : création et développement de sites et d\'applications Web. HTML5, CSS3, JQuery, Javascript, Bootstrap, PHP, Symfony, ...')
+            )
+            ->addTag((new SeoTag)
+                    ->setName('Keywords')
+                    ->setAttribute('name')
+                    ->setContent('Frédérick AGATHE, développeur, développeur web, développeur web Paris, développeur web île-de-france, web, CV, site CV, site, application, application web, html5, css3, jquery, php, javascript')
+            )
+            ->addTag((new SeoTag)
+                    ->setName('author')
+                    ->setAttribute('name')
+                    ->setContent('Frédérick AGATHE')
+            );
+
+        $manager->persist($seo);
 
         $manager->flush();
     }
