@@ -25,7 +25,7 @@ class Seo
     #[ORM\Column(type: Types::TEXT, length: 255, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\OneToMany(targetEntity: SeoTag::class, mappedBy: 'seo')]
+    #[ORM\OneToMany(targetEntity: SeoTag::class, mappedBy: 'seo', cascade: ['persist', 'remove'])]
     private Collection $tags;
 
     public function __construct()
