@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,9 +17,6 @@ class Project
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?array $tasks = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
@@ -34,12 +29,17 @@ class Project
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(targetEntity: ProjectTag::class, mappedBy: 'project')]
-    private Collection $tags;
+    #[ORM\Column(length: 15)]
+    private ?string $type = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $tasks = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isPublished = null;
 
     public function __construct()
     {
-        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -55,18 +55,6 @@ class Project
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getTasks(): ?array
-    {
-        return $this->tasks;
-    }
-
-    public function setTasks(?array $tasks): static
-    {
-        $this->tasks = $tasks;
 
         return $this;
     }
@@ -108,36 +96,6 @@ class Project
     }
 
     /**
-     * @return Collection<int, ProjectTag>
-     */
-    public function getTags(): Collection
-    {
-        return $this->tags;
-    }
-
-    public function addTag(ProjectTag $tag): static
-    {
-        if (!$this->tags->contains($tag)) {
-            $this->tags->add($tag);
-            $tag->setProject($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(ProjectTag $tag): static
-    {
-        if ($this->tags->removeElement($tag)) {
-            // set the owning side to null (unless already changed)
-            if ($tag->getProject() === $this) {
-                $tag->setProject(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Get the value of image
      */
     public function getImage(): ?string
@@ -153,6 +111,42 @@ class Project
     public function setImage($image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getTasks(): ?array
+    {
+        return $this->tasks;
+    }
+
+    public function setTasks(?array $tasks): static
+    {
+        $this->tasks = $tasks;
+
+        return $this;
+    }
+
+    public function isPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setPublished(?bool $isPublished): static
+    {
+        $this->isPublished = $isPublished;
 
         return $this;
     }

@@ -3,10 +3,8 @@
 namespace App\Enum;
 use App\Enum\EnumInterface;
 
-final class TypeSkillEnum implements EnumInterface
+final class TypeProjectEnum implements EnumInterface
 {
-
-    public const TYPE_TOOLS = 'TYPE_TOOLS';
     public const TYPE_FRONT = 'TYPE_FRONT';
     public const TYPE_BACK = 'TYPE_BACK';
 
@@ -16,7 +14,6 @@ final class TypeSkillEnum implements EnumInterface
     public static function cases(): array
     {
         return [
-            self::TYPE_TOOLS,
             self::TYPE_FRONT,
             self::TYPE_BACK,
         ];
@@ -29,7 +26,6 @@ final class TypeSkillEnum implements EnumInterface
     public static function match(int|string $value = self::TYPE_BACK): string
     {
         return match ($value) {
-            self::TYPE_TOOLS => 'Outils',
             self::TYPE_FRONT => 'Front',
             default => 'Back',
         };
@@ -41,7 +37,6 @@ final class TypeSkillEnum implements EnumInterface
     public static function choices(): array
     {
         return [
-            'Outils' => self::TYPE_TOOLS,
             'Front' => self::TYPE_FRONT,
             'Back' => self::TYPE_BACK,
         ];

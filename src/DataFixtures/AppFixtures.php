@@ -3,17 +3,23 @@
 namespace App\DataFixtures;
 
 use App\Entity\Experience;
+use App\Entity\Project;
 use App\Entity\Skill;
 use App\Entity\TrackingEvent;
 use App\Enum\EventEnum;
 use App\Enum\LevelSkillEnum;
 use App\Enum\TypeExperienceEnum;
+use App\Enum\TypeProjectEnum;
 use App\Enum\TypeSkillEnum;
+use App\Utils\FakerTrait;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
+
+    use FakerTrait;
+
     public function load(ObjectManager $manager): void
     {
         foreach ($this->getSkills() as $item) {
@@ -49,6 +55,21 @@ class AppFixtures extends Fixture
                 ->setCode($evt['code']);
 
             $manager->persist($event);
+        }
+
+        foreach ($this->getProjects() as $p) {
+            $project = new Project;
+
+            $project->setName($p['name'])
+                ->setPublished($p['isPublished'])
+                ->setType($p['type'])
+                ->setTasks($p['tasks'])
+                ->setDescription($p['description'])
+                ->setCreatedAt($p['createdAt'])
+                ->setUpdatedAt($this->setDateTimeAfter($project->getCreatedAt()))
+                ->setImage($p['image']);
+                
+            $manager->persist($project);
         }
 
         $manager->flush();
@@ -271,6 +292,53 @@ class AppFixtures extends Fixture
                 'nbRequest' => random_int(0, 100),
                 'code' => 'HOME_' . EventEnum::TYPE_CTA . '_CONTACT_FORM',
             ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getProjects(): array
+    {
+        $faker = $this->getFakerFactory();
+
+        return [
+            [
+                'name' => 'Mon portfolio',
+                'description' => 'Mon super site portfolio',
+                'type' => TypeProjectEnum::TYPE_BACK,
+                'image' => null,
+                'isPublished' => true,
+                'createdAt' => $this->setDateTimeBetween(startDate: '-5 months'),
+                'tasks' => $faker->words(),
+            ],
+            [
+                'name' => $faker->words(random_int(2, 5), true),
+                'description' => $faker->sentences(random_int(3, 5), true),
+                'type' => TypeProjectEnum::TYPE_BACK,
+                'image' => null,
+                'isPublished' => false,
+                'createdAt' => $this->setDateTimeBetween(startDate: '-5 months'),
+                'tasks' => $faker->words(),
+            ],
+            [
+                'name' => $faker->words(random_int(2, 5), true),
+                'description' => $faker->sentences(random_int(3, 5), true),
+                'type' => TypeProjectEnum::TYPE_FRONT,
+                'image' => null,
+                'isPublished' => false,
+                'createdAt' => $this->setDateTimeBetween(startDate: '-5 months'),
+                'tasks' => $faker->words(),
+            ],
+            [
+                'name' => $faker->words(random_int(2, 5), true),
+                'description' => $faker->sentences(random_int(3, 5), true),
+                'type' => TypeProjectEnum::TYPE_FRONT,
+                'image' => null,
+                'isPublished' => false,
+                'createdAt' => $this->setDateTimeBetween(startDate: '-5 months'),
+                'tasks' => $faker->words(),
+            ]
         ];
     }
 }
