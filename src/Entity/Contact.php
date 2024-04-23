@@ -41,7 +41,7 @@ class Contact
     private ?\DateTimeImmutable $repliedAt = null;
 
     #[ORM\Column(length: 30, nullable: true)]
-    private ?string $status = null;
+    private ?string $state = null;
 
     #[ORM\OneToMany(targetEntity: ContactMetadata::class, mappedBy: 'contact', cascade: ['persist', 'remove'])]
     private Collection $metadata;
@@ -152,14 +152,14 @@ class Contact
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getState(): ?string
     {
-        return $this->status;
+        return $this->state;
     }
 
-    public function setStatus(?string $status): static
+    public function setState(?string $state): static
     {
-        $this->status = $status;
+        $this->state = $state;
 
         return $this;
     }

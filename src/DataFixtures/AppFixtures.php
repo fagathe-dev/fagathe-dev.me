@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Contact;
+use App\Entity\ContactMetadata;
 use App\Entity\Experience;
 use App\Entity\Project;
 use App\Entity\Seo;
@@ -10,12 +12,15 @@ use App\Entity\Skill;
 use App\Entity\TrackingEvent;
 use App\Enum\EventEnum;
 use App\Enum\LevelSkillEnum;
+use App\Enum\StateContactEnum;
+use App\Enum\SubjectContactEnum;
 use App\Enum\TypeExperienceEnum;
 use App\Enum\TypeProjectEnum;
 use App\Enum\TypeSkillEnum;
 use App\Utils\FakerTrait;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Generator;
 
 class AppFixtures extends Fixture
 {
@@ -24,6 +29,8 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $faker = $this->getFaker();
+
         foreach ($this->getSkills() as $item) {
             $skill = new Skill;
 
@@ -75,7 +82,8 @@ class AppFixtures extends Fixture
         }
 
         $seo = new Seo;
-        $seo->setTitle('Mon porfolio développeur Web, Frédérick AGATHE')
+        $seo
+            ->setTitle('Mon porfolio développeur Web, Frédérick AGATHE')
             ->setName('Page d\'accueil')
             ->setUrl('/')
             ->addTag((new SeoTag)
@@ -95,6 +103,57 @@ class AppFixtures extends Fixture
             );
 
         $manager->persist($seo);
+
+        for ($i = 0; $i < random_int(15, 50); $i++) {
+            $contact = new Contact;
+            $firstName = $faker->firstName();
+            $lastName = $faker->firstName();
+            $offreDEmploiUrl = 'https://linkedin.com?xxxx';
+            $screenShot = '';
+
+            $contact
+                ->setFullname($firstName . ' ' . $lastName)
+                ->setEmail(strtolower(substr($firstName, 0, 1) . $lastName) . '@fake-email.com')
+                ->setCreatedAt($this->setDateTimeBetween('-8 months'))
+                ->setTelephone($faker->mobileNumber())
+                ->setMessage($faker->sentences(random_int(3, 6), true))
+                ->setSubject($this->randomElement(SubjectContactEnum::cases()))
+                ->setState($this->randomElement(StateContactEnum::cases()))
+                ->addMetadata((new ContactMetadata)->setName('firstName')->setValue($firstName))
+                ->addMetadata((new ContactMetadata)->setName('lastName')->setValue($lastName));
+
+            if (SubjectContactEnum::SUBJECT_OFFRE_EMPLOI) {
+                $contact
+                    ->addMetadata((new ContactMetadata)->setName('company')->setValue($faker->company()))
+                    ->addMetadata((new ContactMetadata)->setName('offre_url')->setValue($offreDEmploiUrl));
+            }
+
+            if (SubjectContactEnum::SUBJECT_BUG_CONSTATE) {
+                $contact
+                    ->addMetadata((new ContactMetadata)->setName('page')->setValue($faker->company()))
+                    ->addMetadata((new ContactMetadata)->setName('file')->setValue($screenShot));
+            }
+
+            if (SubjectContactEnum::SUBJECT_SUGGESTION_AMELIORATION) {
+                $contact
+                    ->addMetadata((new ContactMetadata)->setName('page')->setValue($faker->company()))
+                    ->addMetadata((new ContactMetadata)->setName('file')->setValue($screenShot));
+            }
+
+            if (SubjectContactEnum::SUBJECT_AUTRE) {
+                $contact->addMetadata((new ContactMetadata)->setName('subject')->setValue($faker->word));
+            }
+
+            if ($contact->getState() === StateContactEnum::STATE_LU || $contact->getState() === StateContactEnum::STATE_TRAITE) {
+                $contact->setUpdatedAt($this->setDateTimeAfter($contact->getCreatedAt()));
+            }
+
+            if ($contact->getState() === StateContactEnum::STATE_TRAITE) {
+                $contact->setRepliedAt($this->setDateTimeAfter($contact->getCreatedAt()));
+            }
+
+            $manager->persist($contact);
+        }
 
         $manager->flush();
     }
@@ -324,7 +383,7 @@ class AppFixtures extends Fixture
      */
     public function getProjects(): array
     {
-        $faker = $this->getFakerFactory();
+        $faker = $this->getFaker();
 
         return [
             [
@@ -364,5 +423,10 @@ class AppFixtures extends Fixture
                 'tasks' => $faker->words(),
             ]
         ];
+    }
+
+    private function getFaker(): Generator
+    {
+        return $this->getFakerFactory();
     }
 }
