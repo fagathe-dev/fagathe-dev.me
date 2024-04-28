@@ -14,7 +14,7 @@ final class LoginController extends AbstractController
     #[Route('', name: '')]
     public function index():Response 
     {
-        return $this->render('auth/index.html.twig');
+        return $this->render('auth/security/login.html.twig');
     }
 
 }
