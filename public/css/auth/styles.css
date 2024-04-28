@@ -53,3 +53,14 @@ footer {
 .auth-content {
   width: 100%;
 }
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.link,
+.link:hover {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
