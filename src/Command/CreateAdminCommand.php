@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\User;
+use App\Helpers\DateTimeHelperTrait;
 use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
@@ -22,6 +23,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 )]
 class CreateAdminCommand extends Command
 {
+
+    use DateTimeHelperTrait;
 
     public function __construct(
         private EntityManagerInterface $manager
@@ -66,11 +69,15 @@ class CreateAdminCommand extends Command
         $user
             ->setEmail($email)
             ->setRoles(['ROLE_ADMIN'])
-            // ->setUser
-            ->setPassword($password);
+            ->setUsername($username)
+            ->setPassword($password)
+            ->setRegisteredAt($this->now())
+            ;
 
         try {
             $this->manager->persist($user);
+            $this->manager->flush();
+
             $io->success('A new admin user has been created ! 🚀');
     
             return Command::SUCCESS;
