@@ -27,8 +27,9 @@ class CreateAdminCommand extends Command
     use DateTimeHelperTrait;
 
     public function __construct(
-        private EntityManagerInterface $manager
-    ){
+        private EntityManagerInterface $manager,
+        private UserPasswordHasherInterface $hasher
+    ) {
         parent::__construct();
     }
 
@@ -72,16 +73,15 @@ class CreateAdminCommand extends Command
             ->setUsername($username)
             ->setPassword($password)
             ->setRegisteredAt($this->now())
-            ;
+            ->setPassword($this->hasher->hashPassword($user, $password));
 
         try {
             $this->manager->persist($user);
             $this->manager->flush();
 
             $io->success('A new admin user has been created ! 🚀');
-    
+
             return Command::SUCCESS;
-        
         } catch (ORMException $e) {
             $io->error($e->getMessage());
 
