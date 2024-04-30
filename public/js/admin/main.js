@@ -5,5 +5,3 @@
 const handleChangePassword = (event) => {
   event.preventDefault()
 }
-
-alert('js loaded')
