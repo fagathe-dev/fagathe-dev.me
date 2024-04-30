@@ -79,3 +79,7 @@ footer {
 .btn-toggle-nav a:focus {
   background-color: var(--bs-tertiary-bg);
 }
+
+.form-group {
+  margin-bottom: 1rem;
+}

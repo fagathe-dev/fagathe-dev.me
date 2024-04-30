@@ -1,3 +1,9 @@
-//
-// Place any custom JS here
-//
+/**
+ * @param {SubmitEvent} event 
+ * @returns {void}
+ */
+const handleChangePassword = (event) => {
+  event.preventDefault()
+}
+
+alert('js loaded')
