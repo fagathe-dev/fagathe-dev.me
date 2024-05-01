@@ -7,25 +7,29 @@ const handleChangePassword = async (e) => {
   const form = e.target;
   const data = getValues(form);
   const url = form.action;
-  const method = form.getAttribute("method");
+  const method = form.getAttribute("method") ?? "POST";
 
   try {
-    const res = await fetch(url, { method });
+    const res = await fetch(url, { method, body: JSON.stringify(data) });
+    const resData = await res.json();
     if (res.ok) {
-      const resData = await res.json();
-      if (res.status === 204) {
+      if (res.status === 200) {
+        form.reset();
+        resetValidation(form);
         new Toast("Mot de passe modifié 👍", "success");
 
         return;
       }
-      if (res.status === 400) {
-        validateAll(resData);
-      }
     } else {
+      if (res.status === 400) {
+        validate(resData.violations, form);
+        return;
+      }
       console.error(res);
       errorHTTPRequest();
     }
   } catch (error) {
+    console.error(error);
     return;
   }
   console.info({ form, data, url });

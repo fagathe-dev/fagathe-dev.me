@@ -1,7 +1,7 @@
 /**
- * 
- * @param {object} violations 
- * @param {HTMLFormElement|null} form 
+ *
+ * @param {object} violations
+ * @param {HTMLFormElement|null} form
  * @returns {void}
  */
 const validate = (violations = {}, form = null) => {
@@ -33,7 +33,6 @@ const validate = (violations = {}, form = null) => {
         feedback.innerHTML = violations[field.name];
         feedback.style.display = "unset";
       }
-
       invalidInput(field);
     }
   });
@@ -42,8 +41,8 @@ const validate = (violations = {}, form = null) => {
 };
 
 /**
- * 
- * @param {HTMLInputElement|HTMLTextAreaElement|null} form 
+ *
+ * @param {HTMLInputElement|HTMLTextAreaElement|null} form
  * @returns {void}
  */
 const validInput = (input) => {
@@ -55,8 +54,8 @@ const validInput = (input) => {
 };
 
 /**
- * 
- * @param {HTMLInputElement|HTMLTextAreaElement|null} form 
+ *
+ * @param {HTMLInputElement|HTMLTextAreaElement|null} form
  * @returns {void}
  */
 const invalidInput = (input) => {
@@ -96,6 +95,8 @@ const resetValidation = (form = null) => {
     input.classList.remove("is-valid");
     input.classList.remove("is-invalid");
   });
+
+  form.reset();
 
   return;
 };
