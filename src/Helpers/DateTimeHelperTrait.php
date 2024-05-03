@@ -17,6 +17,17 @@ trait DateTimeHelperTrait
     }
 
     /**
+     * isDatePast
+     *
+     * @param  mixed $date
+     * @return bool
+     */
+    public function isPastDate(DateTimeImmutable $date): bool
+    {
+        return $this->now() > $date;
+    }
+
+    /**
      * @param string string
      * @param string $to
      * 

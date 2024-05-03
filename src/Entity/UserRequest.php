@@ -43,7 +43,7 @@ class UserRequest
 
     public function setName(string $name): static
     {
-        $this->name = $name;
+        $this->name = $name . '_REQUEST';
 
         return $this;
     }
