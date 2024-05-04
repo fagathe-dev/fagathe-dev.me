@@ -3,6 +3,12 @@
 namespace App\Service;
 
 use App\Entity\User;
+use App\Entity\UserRequest;
+use App\Enum\UserRequestEnum;
+use App\Helpers\DateTimeHelperTrait;
+use App\Repository\UserRepository;
+use App\Repository\UserRequestRepository;
+use App\Service\Token\TokenGenerator;
 use App\Utils\ServiceTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
@@ -16,15 +22,100 @@ final class AuthService
 {
 
     use ServiceTrait;
+    use DateTimeHelperTrait;
 
     public function __construct(
         private EntityManagerInterface $manager,
         private UserPasswordHasherInterface $hasher,
         private SerializerInterface $serializer,
         private Security $security,
+        private UserRepository $userRepository,
+        private UserRequestRepository $userRequestRepository,
+        private TokenGenerator $tokenGenerator,
+
     ) {
     }
 
+    /**
+     * @param string|null $email
+     * 
+     * @return void
+     */
+    public function forgotPassword(?string $email): void
+    {
+        $user = $this->userRepository->findOneBy(['email' => $email]);
+
+        if ($user) {
+            $userRequest = new UserRequest;
+
+            $userRequest->setExpiredAt($this->now()->modify('+30 minutes'))
+                ->setName(UserRequestEnum::RESET_PASSWORD)
+                ->setToken($this->tokenGenerator->generate(60))
+                ->setCreatedAt($this->now());
+
+            $user->addRequest($userRequest);
+
+            $this->save($user);
+            $this->addFlash('Un email vous a été envoyé pour réinitialiser votre mot de passe.');
+        } else {
+            $this->addFlash(sprintf('Aucun compte existe pour cet adresse email : %s.', $email), 'danger');
+        }
+    }
+
+    /**
+     * @param Request $request
+     * 
+     * @return User|null
+     */
+    public function checkToken(Request $request): UserRequest|array
+    {
+        $error = [];
+        $token =  $request->query->get('t');
+
+        if ($token === null) {
+            $this->addFlash('Accès non autorisé !', 'danger');
+            $error['state'] = 'none';
+
+            return $error;
+        }
+
+        $userRequest = $this->userRequestRepository->findOneBy(compact('token'));
+
+        if ($userRequest instanceof UserRequest) {
+            if ($this->isPastDate($userRequest->getExpiredAt())) {
+                $this->addFlash('Le lien a expiré !', 'danger');
+                $error['state'] = 'expired';
+
+                return $error;
+            }
+
+            return $userRequest;
+        }
+
+        return $error;
+    }
+
+    /**
+     * @param string $password
+     * @param UserRequest $userRequest
+     * 
+     * @return bool
+     */
+    public function resetPassword(string $password, UserRequest $userRequest): bool
+    {
+        $userRequest->setConsumedAt($this->now());
+        $user = $userRequest->getUser();
+        $this->hash($user->setPassword($password));
+        $this->addFlash('Mot de passe modifié 👍', 'success');
+
+        return $this->save($user);
+    }
+
+    /**
+     * @param Request $request
+     * 
+     * @return object
+     */
     public function changePassword(Request $request): object
     {
         $data = json_decode($request->getContent(), true);
