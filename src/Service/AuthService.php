@@ -8,6 +8,9 @@ use App\Enum\UserRequestEnum;
 use App\Helpers\DateTimeHelperTrait;
 use App\Repository\UserRepository;
 use App\Repository\UserRequestRepository;
+use App\Service\Mail\Auth\ConfirmChangePasswordEmail;
+use App\Service\Mail\Auth\ConfirmResetPasswordEmail;
+use App\Service\Mail\Auth\SendForgotPasswordEmail;
 use App\Service\Token\TokenGenerator;
 use App\Utils\ServiceTrait;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,6 +18,7 @@ use Doctrine\ORM\Exception\ORMException;
 use Exception;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -32,7 +36,9 @@ final class AuthService
         private UserRepository $userRepository,
         private UserRequestRepository $userRequestRepository,
         private TokenGenerator $tokenGenerator,
-
+        private SendForgotPasswordEmail $sendForgotPasswordEmail,
+        private ConfirmResetPasswordEmail $confirmResetPasswordEmail,
+        private ConfirmChangePasswordEmail $confirmChangePasswordEmail
     ) {
     }
 
@@ -55,7 +61,10 @@ final class AuthService
 
             $user->addRequest($userRequest);
 
-            $this->save($user);
+            $bool_save = $this->save($user);
+            if ($bool_save) {
+                $this->sendForgotPasswordEmail->send($userRequest);
+            }
             $this->addFlash('Un email vous a été envoyé pour réinitialiser votre mot de passe.');
         } else {
             $this->addFlash(sprintf('Aucun compte existe pour cet adresse email : %s.', $email), 'danger');
@@ -106,9 +115,15 @@ final class AuthService
         $userRequest->setConsumedAt($this->now());
         $user = $userRequest->getUser();
         $this->hash($user->setPassword($password));
-        $this->addFlash('Mot de passe modifié 👍', 'success');
+        $bool_save = $this->save($user);
+        if ($bool_save) {
+            $this->confirmResetPasswordEmail->send($user);
+            $this->addFlash('Mot de passe modifié 👍', 'success');
+        } else {
+            $this->addFlash('Mot de passe non modifié 👎', 'danger');
+        }
 
-        return $this->save($user);
+        return $bool_save;
     }
 
     /**
@@ -159,9 +174,13 @@ final class AuthService
         }
 
         $this->hash($user->setPassword($data['newPassword']));
-        $this->save($user);
+        $bool_save = $this->save($user);
+        if ($bool_save) {
+            $this->confirmChangePasswordEmail->send($user);
+            return $this->sendJson(['message' => 'Mot de passe modifié', 'success' => true]);
+        }
 
-        return $this->sendJson(['message' => 'Mot de passe modifié', 'success' => true]);
+        return $this->sendJson(['message' => 'Une erreur est survenue lors de la sauvegarde', 'success' => true], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**

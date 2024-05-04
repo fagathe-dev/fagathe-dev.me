@@ -2,15 +2,14 @@
 
 namespace App\Service\Mail\Auth;
 
-use App\Entity\UserRequest;
+use App\Entity\User;
 use App\Enum\EmailTypeEnum;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Mailer\Exception\HttpTransportException;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 
-final class SendForgotPasswordEmail
+final class ConfirmResetPasswordEmail
 {
 
     public const DEFAULT_EMAIL_SENDER = 'noreply@fagathe-dev.me';
@@ -23,21 +22,21 @@ final class SendForgotPasswordEmail
         $this->session = new Session;
     }
 
-    public function send(UserRequest $userRequest): void
+    public function send(User $user): void
     {
 
-        $data = EmailTypeEnum::get(EmailTypeEnum::RESET_PASSWORD_TOKEN);
+        $data = EmailTypeEnum::get(EmailTypeEnum::CONFIRM_CHANGE_PASSWORD);
 
         try {
             $email = (new TemplatedEmail())
                 ->from(self::DEFAULT_EMAIL_SENDER)
-                ->to($userRequest->getUser()->getEmail())
+                ->to($user->getEmail())
                 ->subject($data['label'])
                 // path of the Twig template to render
                 ->htmlTemplate($data['template'])
                 // pass variables (name => value) to the template
                 ->context([
-                    'userRequest' => $userRequest->getUser(),
+                    'user' => $user,
                 ]);
 
             $this->mailerInterface->send($email);
