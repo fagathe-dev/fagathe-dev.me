@@ -9,4 +9,33 @@
       </a>
     </h1>
   </div>
+  <div class="">
+    <table class="table table-responsive table-card mb-1 w-100">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Type</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for xp in experiences %}
+          <tr>
+            <th scope="row">{{ xp.id }}</th>
+            <td>{{ xp.name }}</td>
+            <td>{{ xp.type }}</td>
+            <td>
+              <a href="#" class="btn btn-info" title="Modifier l'expérience chez {{ xp.name }}">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <a href="#" class="btn btn-danger" title="Modifier l'expérience chez {{ xp.name }}">
+                <i class="bi bi-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}
