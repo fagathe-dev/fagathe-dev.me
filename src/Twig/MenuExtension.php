@@ -6,11 +6,18 @@ use App\Service\Menu\Menu;
 use App\Service\Menu\MenuGenerator;
 use App\Service\Menu\MenuItem;
 use App\Service\Menu\MenuItemGroup;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 
 final class MenuExtension extends AbstractExtension
 {
+
+    public function __construct(
+        private UrlGeneratorInterface $urlGenerator
+    ) {
+    }
+
     public function getFunctions(): array
     {
         return [
@@ -35,8 +42,8 @@ final class MenuExtension extends AbstractExtension
     {
         return (new Menu)
             ->addItem(new MenuItemGroup('Expérience', [
-                new MenuItem('Toutes les expériences', '#'),
-                new MenuItem('Ajouter une expérience', '#'),
+                new MenuItem('Toutes les expériences', $this->urlGenerator->generate('admin_experience_index')),
+                new MenuItem('Ajouter une expérience', $this->urlGenerator->generate('admin_experience_create')),
             ]))
             ->addItem(new MenuItemGroup('Skill', [
                 new MenuItem('Tous les skills', '#'),
@@ -62,6 +69,7 @@ final class MenuExtension extends AbstractExtension
                 new MenuItem('Tous les évènements', '#'),
                 new MenuItem('Ajouter un évènement', '#'),
                 new MenuItem('Les derniers logs', '#'),
-            ]));
+            ]))
+            ->addItem(new MenuItem('Emails', $this->urlGenerator->generate('admin_email_index')));
     }
 }

@@ -59,6 +59,8 @@ footer {
 .btn-toggle:focus {
   color: rgba(var(--bs-emphasis-color-rgb), 0.85);
   background-color: var(--bs-tertiary-bg);
+  border: none;
+  outline: none;
 }
 
 .btn-toggle[aria-expanded="true"] {
