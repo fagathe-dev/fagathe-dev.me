@@ -1,0 +1,66 @@
+body {
+  background: #fafafa;
+}
+
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  background-color: var(--bs-white);
+  padding: calc(6rem / 5);
+}
+
+.card-body {
+  padding: 0.2rem 0.5rem;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 450px;
+  height: calc(100vh - 55px);
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-logo {
+  height: 50px;
+  width: 85px;
+}
+
+.auth-footer {
+  width: 100%;
+}
+
+.auth-content {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.link,
+.link:hover {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}

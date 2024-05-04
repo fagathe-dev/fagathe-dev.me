@@ -42,8 +42,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\OneToMany(targetEntity: UserRequest::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: UserRequest::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
     private Collection $requests;
+
+    #[ORM\Column(length: 100)]
+    private ?string $username = null;
 
     public function __construct()
     {
@@ -187,6 +190,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $request->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
 
         return $this;
     }

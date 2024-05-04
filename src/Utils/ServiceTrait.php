@@ -59,17 +59,6 @@ trait ServiceTrait
     }
 
     /**
-     * isDatePast
-     *
-     * @param  mixed $date
-     * @return bool
-     */
-    public function isDatePast(DateTimeImmutable $date): bool
-    {
-        return $this->now() < $date;
-    }
-
-    /**
      * @param string $token
      *
      * @return array $json_decoded_data

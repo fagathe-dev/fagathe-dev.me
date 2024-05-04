@@ -1,0 +1,56 @@
+{% extends "auth/layout.html.twig" %}
+
+{% block header %}
+  {% if error is defined and error != null %}
+  <div class="my-3">
+    <div class="alert alert-danger alert-dismissible alert-borderless fade show" role="alert">
+      {{ error.messageKey|trans(error.messageData, 'security') }}
+      <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}
+
+
+{% block content %}
+  <form action="{{ url('auth_login') }}" method="POST">
+    <h1 class="h3 text-center text-indigo">Se connecter</h1>
+    
+    <div class="form-group">
+      <label class="form-label" for="username">Nom d'utilisateur :</label>
+      <input type="text" class="form-control" name="username" id="username" value="{{ last_username }}" required autofocus>
+    </div>
+
+    <div class="form-group">
+      <div class="d-flex justify-content-between">
+        <label class="form-label" for="password">Mot de passe :</label>
+        <a href="#">Mot de passe oublié ?</a>
+      </div>
+      <input type="password" class="form-control" name="password" id="password" required>
+    </div>
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    
+    <!-- If you want to control the URL the user is redirected to on success -->
+    <input type="hidden" name="_target_path" value="{{ url('admin_default') }}">
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="form-check">
+        <label class="form-check-label" for="remember_me">Resté connecté ?</label>
+        <input  class="form-check-input" type="checkbox" id="remember_me" name="_remember_me" value="true" checked>
+      </div>
+      <button type="submit" class="btn btn-primary">Se connecter</button>
+    </div>
+
+  </form>
+{% endblock %}
+
+{% block footer %}
+  <div class="d-flex flex-column">
+    <a href="{{ url('auth_forgot_password') }}" class="link mb-3">J'ai oublié mon mot de passe</a>
+    <a href="#" class="link">
+      <i class="bi bi-arrow-left"></i>
+      Revenir sur le site 
+    </a>
+  </div>
+{% endblock %}

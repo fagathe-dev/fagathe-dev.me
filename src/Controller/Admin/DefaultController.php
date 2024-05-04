@@ -19,6 +19,6 @@ final class DefaultController extends AbstractController
     #[Route('/admin', name: 'admin_default', methods: ['GET'])]
     public function index(Request $request): Response
     {
-        return $this->render('admin/layouts.html.twig');
+        return $this->render('admin/layout.html.twig');
     }
 }
