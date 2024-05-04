@@ -1,0 +1,10 @@
+{% extends "admin/layout.html.twig" %}
+
+{% block content %}
+  <h1 class="h3">Liste des e-mails</h1>
+  <div class="list-group list-group-flush">
+    {% for key, email in emails %}
+      <a class="list-group-item" href="{{ url('admin_email_show', {'email': email}) }}">{{ key }}</a>
+    {% endfor %}
+  </div>
+{% endblock %}
