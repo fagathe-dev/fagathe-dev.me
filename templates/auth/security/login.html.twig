@@ -2,7 +2,12 @@
 
 {% block header %}
   {% if error is defined and error != null %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+  <div class="my-3">
+    <div class="alert alert-danger alert-dismissible alert-borderless fade show" role="alert">
+      {{ error.messageKey|trans(error.messageData, 'security') }}
+      <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
   {% endif %}
 {% endblock %}
 

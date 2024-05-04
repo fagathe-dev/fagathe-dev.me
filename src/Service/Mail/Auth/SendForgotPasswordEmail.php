@@ -8,7 +8,6 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Mailer\Exception\HttpTransportException;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 
 final class SendForgotPasswordEmail
 {
@@ -37,7 +36,8 @@ final class SendForgotPasswordEmail
                 ->htmlTemplate($data['template'])
                 // pass variables (name => value) to the template
                 ->context([
-                    'userRequest' => $userRequest->getUser(),
+                    'username' => $userRequest->getUser()->getUsername(),
+                    'token' => $userRequest->getToken(),
                 ]);
 
             $this->mailerInterface->send($email);
