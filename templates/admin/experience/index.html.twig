@@ -27,13 +27,18 @@
             <td>{{ xp.type }}</td>
             <td>
               <a 
-                href="{{ url('admin_experience_edit', { id : xp.id }) }}" 
+                href="{{ path('admin_experience_edit', { id : xp.id }) }}" 
                 class="btn btn-info" 
                 title="Modifier l'expérience chez {{ xp.name }}"
               >
                 <i class="bi bi-pencil-square"></i>
               </a>
-              <a href="#" class="btn btn-danger" title="Modifier l'expérience chez {{ xp.name }}">
+              <a 
+                href="{{ path('admin_experience_delete', { id : xp.id }) }}" 
+                class="btn btn-danger" 
+                title="Modifier l'expérience chez {{ xp.name }}"
+                onclick="deleteExperience(event);"
+              >
                 <i class="bi bi-trash"></i>
               </a>
             </td>
@@ -42,4 +47,8 @@
       </tbody>
     </table>
   </div>
+{% endblock %}
+
+{% block js %}
+  <script src="{{ asset('js/admin/experience.js') }}"></script>
 {% endblock %}
