@@ -43,7 +43,7 @@ trait DateTimeHelperTrait
         $end = (int) $end->format('Y');
 
         for ($i = $start; $i <= $end; $i++) {
-            $tabYears = [...$tabYears, '' . $i . ''];
+            $tabYears[$i] = $i;
         }
 
         return $tabYears;
