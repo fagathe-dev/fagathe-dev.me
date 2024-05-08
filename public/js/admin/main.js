@@ -1,5 +1,5 @@
 /**
- * @param {SubmitEvent} event
+ * @param {SubmitEvent} e
  * @returns {void}
  */
 const handleChangePassword = async (e) => {
@@ -32,5 +32,5 @@ const handleChangePassword = async (e) => {
     console.error(error);
     return;
   }
-  console.info({ form, data, url });
+  
 };

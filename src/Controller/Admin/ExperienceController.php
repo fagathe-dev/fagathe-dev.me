@@ -6,6 +6,7 @@ use App\Entity\Experience;
 use App\Form\Admin\ExperienceType;
 use App\Service\Admin\ExperienceService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,7 +48,7 @@ final class ExperienceController extends AbstractController
         return $this->render('admin/experience/create.html.twig', [...$this->service->create(), 'form' => $form]);
     }
 
-    #[Route('/edit/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
     public function edit(Experience $experience, Request $request): Response
     {
         $form = $this->createForm(ExperienceType::class, $experience);
@@ -64,5 +65,17 @@ final class ExperienceController extends AbstractController
         }
 
         return $this->render('admin/experience/edit.html.twig', [...$this->service->edit(), 'form' => $form]);
+    }
+
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]
+    public function delete(Experience $experience): JsonResponse
+    {
+        $response = $this->service->delete($experience);
+
+        return $this->json(
+            $response->data,
+            $response->status,
+            $response->headers,
+        );
     }
 }
