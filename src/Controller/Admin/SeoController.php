@@ -33,4 +33,10 @@ final class SeoController extends AbstractController
     {
         return $this->render('admin/seo/index.html.twig');
     }
+
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]
+    public function deleteSEO(): Response
+    {
+        return $this->render('admin/seo/index.html.twig');
+    }
 }

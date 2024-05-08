@@ -29,8 +29,9 @@ final class SEOService
     public function index():array 
     {
         $breadcrumb = $this->breadcrumb();
+        $seoPages = $this->seoRepository->findAll();
 
-        return compact('breadcrumb');
+        return compact('breadcrumb', 'seoPages');
     }
     
     /**
