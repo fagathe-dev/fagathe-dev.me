@@ -46,4 +46,23 @@ final class ExperienceController extends AbstractController
 
         return $this->render('admin/experience/create.html.twig', [...$this->service->create(), 'form' => $form]);
     }
+
+    #[Route('/edit/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    public function edit(Experience $experience, Request $request): Response
+    {
+        $form = $this->createForm(ExperienceType::class, $experience);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->service->save($experience)) {
+                $this->addFlash('info', 'Expérience modifiée 🚀');
+
+                $this->redirectToRoute('admin_experience_edit', [
+                    'id' => $experience->getId(),
+                ]);
+            }
+        }
+
+        return $this->render('admin/experience/edit.html.twig', [...$this->service->edit(), 'form' => $form]);
+    }
 }

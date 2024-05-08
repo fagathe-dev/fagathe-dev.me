@@ -48,9 +48,9 @@ final class ExperienceService
     /**
      * @return array
      */
-    public function update(): array
+    public function edit(): array
     {
-        $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Ajouter une expérience')]);
+        $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Modifier une expérience')]);
 
         return compact('breadcrumb',);
     }
