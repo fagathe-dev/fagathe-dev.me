@@ -1,0 +1,37 @@
+{{ form_start(form) }}
+
+  {{ form_row(form.name) }}
+  
+  {{ form_row(form.type) }}
+
+  {{ form_row(form.start_year) }}
+  
+  {{ form_row(form.end_year) }}
+
+  <!-- store the prototype on the data-prototype attribute -->
+  <div class="group-task-list">
+    <label for="#" class="form-label">
+      Tâches
+      <span id="add-task" class="btn btn-sm btn-primary" data-list-selector="#tasks-field-list"><i class="bi bi-plus-lg"></i></span>
+    </label>
+    <div 
+      id="tasks-field-list"
+      data-prototype="{{ form_widget(form.tasks.vars.prototype)|e('html_attr') }}"
+      data-widget-tags="{{ '<div></div>'|e }}"
+      data-widget-counter="{{ form.tasks|length }}"
+    >
+      {% for task in form.tasks %}
+        <div class="row">
+          <div class="col-11">
+            {{ form_row(task) }}
+          </div>
+          <div class="col-1">
+            <span class="btn btn-delete text-danger" onclick="deleteTask(event)"><i class="bi bi-x-square"></i></span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div> 
+
+  {{ form_rest(form) }}
+{{ form_end(form) }}
