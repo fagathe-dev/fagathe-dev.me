@@ -26,7 +26,7 @@ class Experience
     private ?string $end_year = null;
 
     #[ORM\Column(nullable: true)]
-    private ?array $tasks = null;
+    private ?array $tasks = [];
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $place = null;
@@ -92,6 +92,13 @@ class Experience
     public function setTasks(?array $tasks): static
     {
         $this->tasks = $tasks;
+
+        return $this;
+    }
+
+    public function addTask(string $task): static
+    {
+        $this->tasks = [...$this->tasks, $task];
 
         return $this;
     }

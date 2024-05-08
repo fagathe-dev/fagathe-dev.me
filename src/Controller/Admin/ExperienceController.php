@@ -2,8 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Experience;
+use App\Form\Admin\ExperienceType;
 use App\Service\Admin\ExperienceService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,8 +26,24 @@ final class ExperienceController extends AbstractController
     }
 
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        return $this->render('admin/experience/index.html.twig');
+        $experience = new Experience;
+        $experience->addTask('');
+
+        $form = $this->createForm(ExperienceType::class, $experience);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->service->save($experience)) {
+                $this->addFlash('info', 'Expérience créée 🚀');
+
+                $this->redirectToRoute('admin_experience_edit', [
+                    'id' => $experience->getId(),
+                ]);
+            }
+        }
+
+        return $this->render('admin/experience/create.html.twig', [...$this->service->create(), 'form' => $form]);
     }
 }
