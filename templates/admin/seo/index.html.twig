@@ -1,0 +1,55 @@
+{% extends "admin/layout.html.twig" %}
+
+{% block content %}
+  <div class="row">
+    <h1 class="h4 d-flex justify-content-between align-items-center">
+      Gestion du SEO
+      <a href="{{ url("admin_seo_create") }}" title="Ajouter une expérience" class="btn btn-success btn-sm">
+        <i class="bi bi-plus-lg"></i>
+      </a>
+    </h1>
+  </div>
+  <div class="">
+    <table class="table table-responsive table-card mb-1 w-100">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Titre</th>
+          <th scope="col">Url</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {# {% for xp in experiences %}
+          <tr>
+            <th scope="row">{{ xp.id }}</th>
+            <td>{{ xp.name }}</td>
+            <td>{{ xp.type }}</td>
+            <td>
+              <a 
+                href="{{ path('admin_experience_edit', { id : xp.id }) }}" 
+                class="btn btn-info" 
+                title="Modifier l'expérience chez {{ xp.name }}"
+              >
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <a 
+                href="{{ path('admin_experience_delete', { id : xp.id }) }}" 
+                class="btn btn-danger" 
+                title="Modifier l'expérience chez {{ xp.name }}"
+                onclick="deleteExperience(event);"
+              >
+                <i class="bi bi-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %} #}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script src="{{ asset('js/admin/seo.js') }}"></script>
+{% endblock %}
