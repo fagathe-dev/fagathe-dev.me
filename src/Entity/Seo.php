@@ -28,6 +28,9 @@ class Seo
     #[ORM\OneToMany(targetEntity: SeoTag::class, mappedBy: 'seo', cascade: ['persist', 'remove'])]
     private Collection $tags;
 
+    #[ORM\Column(length: 40)]
+    private ?string $ref = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -100,6 +103,18 @@ class Seo
                 $tag->setSeo(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRef(): ?string
+    {
+        return $this->ref;
+    }
+
+    public function setRef(string $ref): static
+    {
+        $this->ref = $ref;
 
         return $this;
     }

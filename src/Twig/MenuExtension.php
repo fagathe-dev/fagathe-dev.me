@@ -42,31 +42,31 @@ final class MenuExtension extends AbstractExtension
     {
         return (new Menu)
             ->addItem(new MenuItemGroup('Expérience', [
-                new MenuItem('Toutes les expériences', $this->urlGenerator->generate('admin_experience_index')),
+                new MenuItem('Gestions des expériences', $this->urlGenerator->generate('admin_experience_index')),
                 new MenuItem('Ajouter une expérience', $this->urlGenerator->generate('admin_experience_create')),
             ]))
             ->addItem(new MenuItemGroup('Skill', [
-                new MenuItem('Tous les skills', '#'),
+                new MenuItem('Gestion des skills', '#'),
                 new MenuItem('Ajouter un skill', '#'),
             ]))
             ->addItem(new MenuItemGroup('Seo', [
-                new MenuItem('Toutes les pages', '#'),
-                new MenuItem('Ajouter une page', '#'),
-                new MenuItem('Toutes les balises', '#'),
+                new MenuItem('Gestion du seo',  $this->urlGenerator->generate('admin_seo_index')),
+                new MenuItem('Ajouter une page',  $this->urlGenerator->generate('admin_seo_create')),
+                new MenuItem('Gestion des balises', '#'),
                 new MenuItem('Ajouter une balise', '#'),
             ]))
             ->addItem(new MenuItemGroup('Projet', [
-                new MenuItem('Tous les projets', '#'),
+                new MenuItem('Gestion des projets', '#'),
                 new MenuItem('Ajouter un projet', '#'),
-                new MenuItem('Toutes les balises', '#'),
+                new MenuItem('Gestion des balises', '#'),
                 new MenuItem('Ajouter une balise', '#'),
             ]))
             ->addItem(new MenuItemGroup('Contact', [
-                new MenuItem('Tous les contacts', '#'),
+                new MenuItem('Gestion des contacts', '#'),
                 new MenuItem('Non-lus', '#'),
             ]))
             ->addItem(new MenuItemGroup('Tracking', [
-                new MenuItem('Tous les évènements', '#'),
+                new MenuItem('Gestion des évènements', '#'),
                 new MenuItem('Ajouter un évènement', '#'),
                 new MenuItem('Les derniers logs', '#'),
             ]))

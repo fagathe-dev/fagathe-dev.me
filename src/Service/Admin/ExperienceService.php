@@ -57,10 +57,10 @@ final class ExperienceService
     }
 
     /**
-     * index
+     * breadcrumb
      *
-     * @param  mixed $request
-     * @return array
+     * @param Breadcrumb[] $items
+     * @return Breadcrumb
      */
     public function breadcrumb(array $items = []): Breadcrumb
     {
