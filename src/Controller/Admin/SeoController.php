@@ -33,7 +33,13 @@ final class SeoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->service->save($seo)) {
+                $this->addFlash('info', 'Page créée 🚀');
 
+                return $this->redirectToRoute('admin_seo_edit', [
+                    'id' => 1,
+                ]);
+            }
         }
 
         return $this->render('admin/seo/create.html.twig', array_merge(compact('form'), $this->service->createSEO()));
@@ -42,7 +48,7 @@ final class SeoController extends AbstractController
     #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
     public function editSEO(): Response
     {
-        return $this->render('admin/seo/index.html.twig');
+        return $this->render('admin/seo/edit.html.twig');
     }
 
     #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]

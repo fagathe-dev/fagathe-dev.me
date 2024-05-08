@@ -39,7 +39,7 @@ final class ExperienceController extends AbstractController
             if ($this->service->save($experience)) {
                 $this->addFlash('info', 'Expérience créée 🚀');
 
-                $this->redirectToRoute('admin_experience_edit', [
+                return $this->redirectToRoute('admin_experience_edit', [
                     'id' => $experience->getId(),
                 ]);
             }
