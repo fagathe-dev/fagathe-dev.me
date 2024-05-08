@@ -26,6 +26,12 @@ final class SEOService
         private Security $security,
     ){}
 
+    public function createSEO():array {
+        $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Ajouter une page')]);
+
+        return compact('breadcrumb');
+    }
+
     public function index():array 
     {
         $breadcrumb = $this->breadcrumb();
