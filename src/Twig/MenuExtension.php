@@ -46,8 +46,8 @@ final class MenuExtension extends AbstractExtension
                 new MenuItem('Ajouter une expérience', $this->urlGenerator->generate('admin_experience_create')),
             ]))
             ->addItem(new MenuItemGroup('Skill', [
-                new MenuItem('Gestion des skills', '#'),
-                new MenuItem('Ajouter un skill', '#'),
+                new MenuItem('Gestion des skills',  $this->urlGenerator->generate('admin_skill_index')),
+                new MenuItem('Ajouter un skill',  $this->urlGenerator->generate('admin_skill_create')),
             ]))
             ->addItem(new MenuItemGroup('Seo', [
                 new MenuItem('Gestion du seo', $this->urlGenerator->generate('admin_seo_index')),
