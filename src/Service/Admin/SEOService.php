@@ -29,6 +29,9 @@ final class SEOService
     ) {
     }
 
+    /**
+     * @return array
+     */
     public function createSEO(): array
     {
         $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Ajouter une page')]);
@@ -36,6 +39,19 @@ final class SEOService
         return compact('breadcrumb');
     }
 
+    /**
+     * @return array
+     */
+    public function editSEO(): array
+    {
+        $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Modifier une page')]);
+
+        return compact('breadcrumb');
+    }
+
+    /**
+     * @return array
+     */
     public function index(): array
     {
         $breadcrumb = $this->breadcrumb();
@@ -67,8 +83,8 @@ final class SEOService
     public function save(Seo $seo): bool
     {
         try {
-            // $this->manager->persist($seo);
-            // $this->manager->flush();
+            $this->manager->persist($seo);
+            $this->manager->flush();
             return true;
         } catch (ORMException $e) {
             $this->addFlash($e->getMessage(), 'danger');
