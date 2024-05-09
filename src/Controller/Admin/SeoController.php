@@ -3,7 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Seo;
+use App\Entity\SeoTag;
 use App\Form\Admin\Seo\PageType;
+use App\Form\Admin\Seo\SeoTagType;
+use App\Form\Admin\Seo\TagType;
 use App\Service\Admin\SEOService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,7 +49,7 @@ final class SeoController extends AbstractController
         return $this->render('admin/seo/create.html.twig', array_merge(compact('form'), $this->service->createSEO()));
     }
 
-    #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
     public function editSEO(Seo $seo, Request $request): Response
     {
         $form = $this->createForm(PageType::class, $seo);
@@ -71,5 +74,59 @@ final class SeoController extends AbstractController
             $response->status,
             $response->headers,
         );
+    }
+
+    #[Route('/{id}', name: 'show', methods: ['GET'], requirements: ['id' => '\d+'])]
+    public function showSEO(Seo $seo): Response
+    {
+        return $this->render('admin/seo/show.html.twig', $this->service->show($seo));
+    }
+
+    #[Route('/seotag/{id}/edit', name: 'seotag_edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    public function editSEOTag(SeoTag $tag, Request $request): Response
+    {
+        $form = $this->createForm(SeoTagType::class, $tag);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->service->saveTag($tag)) {
+                $this->addFlash('info', 'Page modifiée 🚀');
+            }
+        }
+
+        return $this->render('admin/seo/edit.html.twig', array_merge(compact('form'), $this->service->createSEO()));
+    }
+
+    #[Route('/tags', name: 'tags_index', methods: ['GET'])]
+    public function tagsIndex(Request $request): Response
+    {
+        return $this->render('admin/seo/tag/index.html.twig', $this->service->tagsIndex($request));
+    }
+
+    #[Route('/tags/{id}', name: 'tag_delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]
+    public function deleteSEOTag(SeoTag $tag): JsonResponse
+    {
+        $response = $this->service->deleteTag($tag);
+
+        return $this->json(
+            $response->data,
+            $response->status,
+            $response->headers,
+        );
+    }
+
+    #[Route('/tag/{id}/edit', name: 'tag_edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    public function editTag(SeoTag $tag, Request $request): Response
+    {
+        $form = $this->createForm(TagType::class, $tag);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->service->saveTag($tag)) {
+                $this->addFlash('info', 'Page modifiée 🚀');
+            }
+        }
+
+        return $this->render('admin/seo/edit.html.twig', array_merge(compact('form'), $this->service->createSEO()));
     }
 }
