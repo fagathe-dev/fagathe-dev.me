@@ -3,8 +3,8 @@
 {% block content %}
   <div class="row">
     <h1 class="h4 d-flex justify-content-between align-items-center">
-      Liste des expériences
-      <a href="{{ url("admin_experience_create") }}" title="Ajouter une expérience" class="btn btn-success btn-sm">
+      Liste des skills
+      <a href="{{ url("admin_skill_create") }}" title="Ajouter une skill" class="btn btn-success btn-sm">
         <i class="bi bi-plus-lg"></i>
       </a>
     </h1>
@@ -16,28 +16,30 @@
           <th scope="col">ID</th>
           <th scope="col">Nom</th>
           <th scope="col">Type</th>
+          <th scope="col">Niveau</th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        {% for xp in experiences %}
+        {% for skill in skills %}
           <tr>
-            <th scope="row">{{ xp.id }}</th>
-            <td>{{ xp.name }}</td>
-            <td>{{ xp.type }}</td>
+            <th scope="row">{{ skill.id }}</th>
+            <td>{{ skill.name }}</td>
+            <td>{{ skill.niceType }}</td>
+            <td>{{ skill.niceLevel }}</td>
             <td>
               <a 
-                href="{{ path('admin_experience_edit', { id : xp.id }) }}" 
+                href="{{ path('admin_skill_edit', { id : skill.id }) }}" 
                 class="btn btn-info" 
-                title="Modifier l'expérience chez {{ xp.name }}"
+                title="Modifier la skill chez {{ skill.name }}"
               >
                 <i class="bi bi-pencil-square"></i>
               </a>
               <a 
-                href="{{ path('admin_experience_delete', { id : xp.id }) }}" 
+                href="{{ path('admin_skill_delete', { id : skill.id }) }}" 
                 class="btn btn-danger" 
-                title="Supprimer l'expérience chez {{ xp.name }}"
-                onclick="deleteExperience(event);"
+                title="Supprimer la skill chez {{ skill.name }}"
+                onclick="deleteSkill(event);"
               >
                 <i class="bi bi-trash"></i>
               </a>
@@ -50,5 +52,5 @@
 {% endblock %}
 
 {% block js %}
-  <script src="{{ asset('js/admin/experience.js') }}"></script>
+  <script src="{{ asset('js/admin/skill.js') }}"></script>
 {% endblock %}
