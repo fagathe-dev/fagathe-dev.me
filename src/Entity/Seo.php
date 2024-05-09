@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SeoRepository::class)]
 class Seo
@@ -17,18 +18,22 @@ class Seo
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Le nom est obligatoire !')]
     private ?string $name = null;
 
     #[ORM\Column(length: 90)]
+    #[Assert\NotBlank(message: 'L\'url est obligatoire !')]
     private ?string $url = null;
 
     #[ORM\Column(type: Types::TEXT, length: 255, nullable: true)]
+    #[Assert\NotBlank(message: 'Le titre est obligatoire !')]
     private ?string $title = null;
 
     #[ORM\OneToMany(targetEntity: SeoTag::class, mappedBy: 'seo', cascade: ['persist', 'remove'])]
     private Collection $tags;
 
     #[ORM\Column(length: 40)]
+    #[Assert\NotBlank(message: 'La ref est obligatoire !')]
     private ?string $ref = null;
 
     public function __construct()

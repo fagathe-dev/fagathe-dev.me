@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Service\Admin;
 
+use App\Entity\Seo;
 use App\Entity\User;
 use App\Repository\SeoRepository;
 use App\Repository\SeoTagRepository;
@@ -17,29 +19,31 @@ final class SEOService
 {
 
     use ServiceTrait;
-    
+
     public function __construct(
         private EntityManagerInterface $manager,
         private SeoRepository $seoRepository,
         private SeoTagRepository $seoTagRepository,
         private UrlGeneratorInterface $urlGenerator,
         private Security $security,
-    ){}
+    ) {
+    }
 
-    public function createSEO():array {
+    public function createSEO(): array
+    {
         $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Ajouter une page')]);
 
         return compact('breadcrumb');
     }
 
-    public function index():array 
+    public function index(): array
     {
         $breadcrumb = $this->breadcrumb();
         $seoPages = $this->seoRepository->findAll();
 
         return compact('breadcrumb', 'seoPages');
     }
-    
+
     /**
      * breadcrumb
      *
@@ -53,18 +57,18 @@ final class SEOService
             ...$items
         ]);
     }
-    
+
     /**
      * save
      *
-     * @param  User $user
+     * @param  Seo $seo
      * @return bool
      */
-    public function save(User $user): bool
+    public function save(Seo $seo): bool
     {
         try {
-            $this->manager->persist($user);
-            $this->manager->flush();
+            // $this->manager->persist($seo);
+            // $this->manager->flush();
             return true;
         } catch (ORMException $e) {
             $this->addFlash($e->getMessage(), 'danger');

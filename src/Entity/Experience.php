@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ExperienceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ExperienceRepository::class)]
 class Experience
@@ -14,11 +15,12 @@ class Experience
     private ?int $id = null;
 
     #[ORM\Column(length: 120)]
+    #[Assert\NotBlank(message: 'Le nom est obligatoire !', allowNull: true)]
     private ?string $name = null;
-
+    
     #[ORM\Column(length: 20)]
     private ?string $type = null;
-
+    
     #[ORM\Column(length: 4)]
     private ?string $start_year = null;
 
@@ -29,6 +31,7 @@ class Experience
     private ?array $tasks = [];
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\NotBlank(message: 'Le lieu est obligatoire !', allowNull: true)]
     private ?string $place = null;
 
     public function getId(): ?int
