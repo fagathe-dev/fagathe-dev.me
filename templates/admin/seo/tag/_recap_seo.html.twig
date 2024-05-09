@@ -1,0 +1,30 @@
+{% if seo is defined %}
+  <a data-bs-toggle="modal" data-bs-target="#infoSeoModal">Informations Seo</a>
+  <div class="modal fade" id="infoSeoModal" tabindex="-1" aria-labelledby="infoSeoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Informations SEO sur la page</h1>
+          <table class="table table-bordered">
+            <tr>
+              <th scope="row">Nom</th>
+              <td>{{ seo.name }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Titre</th>
+              <td>{{ seo.title }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Ref</th>
+              <td>{{ seo.ref }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Url</th>
+              <td>{{ seo.url }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
