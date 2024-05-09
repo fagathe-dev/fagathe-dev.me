@@ -50,9 +50,9 @@ final class MenuExtension extends AbstractExtension
                 new MenuItem('Ajouter un skill', '#'),
             ]))
             ->addItem(new MenuItemGroup('Seo', [
-                new MenuItem('Gestion du seo',  $this->urlGenerator->generate('admin_seo_index')),
-                new MenuItem('Ajouter une page',  $this->urlGenerator->generate('admin_seo_create')),
-                new MenuItem('Gestion des balises', '#'),
+                new MenuItem('Gestion du seo', $this->urlGenerator->generate('admin_seo_index')),
+                new MenuItem('Ajouter une page', $this->urlGenerator->generate('admin_seo_create')),
+                new MenuItem('Gestion des balises', $this->urlGenerator->generate('admin_seo_tags_index')),
                 new MenuItem('Ajouter une balise', '#'),
             ]))
             ->addItem(new MenuItemGroup('Projet', [
