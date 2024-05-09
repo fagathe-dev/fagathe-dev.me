@@ -41,7 +41,7 @@ final class SeoController extends AbstractController
                 $this->addFlash('info', 'Page créée 🚀');
 
                 return $this->redirectToRoute('admin_seo_edit', [
-                    'id' => 1,
+                    'id' => $seo->getId(),
                 ]);
             }
         }
@@ -82,6 +82,46 @@ final class SeoController extends AbstractController
         return $this->render('admin/seo/show.html.twig', $this->service->show($seo));
     }
 
+    #[Route('/tag/{id}/create', name: 'seotag_create', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    public function createSEOTag(Seo $seo, Request $request): Response
+    {
+        $tag = new SeoTag;
+        $form = $this->createForm(SeoTagType::class, $tag);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->service->saveTag($tag->setSeo($seo))) {
+                $this->addFlash('info', 'Tag créée 🚀');
+
+                return $this->redirectToRoute('admin_seo_seotag_edit', [
+                    'id' => $tag->getId(),
+                ]);
+            }
+        }
+
+        return $this->render('admin/seo/create_tag.html.twig', array_merge(compact('form', 'seo'), $this->service->createSEOTag($seo)));
+    }
+
+    #[Route('/tag/create', name: 'tags_create', methods: ['GET', 'POST'])]
+    public function createTag(Request $request): Response
+    {
+        $tag = new SeoTag;
+        $form = $this->createForm(TagType::class, $tag);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->service->saveTag($tag)) {
+                $this->addFlash('info', 'Tag créée 🚀');
+
+                return $this->redirectToRoute('admin_seo_tag_edit', [
+                    'id' => $tag->getId(),
+                ]);
+            }
+        }
+
+        return $this->render('admin/seo/create.html.twig', array_merge(compact('form'), $this->service->createTag()));
+    }
+
     #[Route('/seotag/{id}/edit', name: 'seotag_edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
     public function editSEOTag(SeoTag $tag, Request $request): Response
     {
@@ -115,7 +155,7 @@ final class SeoController extends AbstractController
         );
     }
 
-    #[Route('/tag/{id}/edit', name: 'tag_edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    #[Route('/tag/{id}/edit', name: 'tags_edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
     public function editTag(SeoTag $tag, Request $request): Response
     {
         $form = $this->createForm(TagType::class, $tag);
