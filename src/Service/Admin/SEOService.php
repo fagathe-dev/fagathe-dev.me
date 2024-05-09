@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
 use Exception;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class SEOService
@@ -72,6 +73,27 @@ final class SEOService
             new BreadcrumbItem('Gestion du SEO', $this->urlGenerator->generate('admin_seo_index')),
             ...$items
         ]);
+    }
+
+    /**
+     * @param Seo $seo
+     * 
+     * @return object
+     */
+    public function delete(Seo $seo): object
+    {
+        try {
+            $this->manager->remove($seo);
+            $this->manager->flush();
+
+            return $this->sendNoContent();
+        } catch (ORMException $e) {
+            $this->addFlash('Une erreur est survenue lors de l\'enregistrement de la page !', 'danger');
+            return $this->sendJson(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (Exception $e) {
+            $this->addFlash($e->getMessage(), 'danger');
+            return  $this->sendJson(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
