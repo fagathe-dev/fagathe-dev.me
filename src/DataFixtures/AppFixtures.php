@@ -85,6 +85,7 @@ class AppFixtures extends Fixture
         $seo
             ->setTitle('Mon porfolio développeur Web, Frédérick AGATHE')
             ->setName('Page d\'accueil')
+            ->setRef('app_home')
             ->setUrl('/')
             ->addTag((new SeoTag)
                     ->setName('description')
@@ -92,7 +93,7 @@ class AppFixtures extends Fixture
                     ->setContent('CV développeur Web : création et développement de sites et d\'applications Web. HTML5, CSS3, JQuery, Javascript, Bootstrap, PHP, Symfony, ...')
             )
             ->addTag((new SeoTag)
-                    ->setName('Keywords')
+                    ->setName('keywords')
                     ->setAttribute('name')
                     ->setContent('Frédérick AGATHE, développeur, développeur web, développeur web Paris, développeur web île-de-france, web, CV, site CV, site, application, application web, html5, css3, jquery, php, javascript')
             )

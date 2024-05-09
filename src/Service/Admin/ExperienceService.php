@@ -57,10 +57,10 @@ final class ExperienceService
     }
 
     /**
-     * index
+     * breadcrumb
      *
-     * @param  mixed $request
-     * @return array
+     * @param Breadcrumb[] $items
+     * @return Breadcrumb
      */
     public function breadcrumb(array $items = []): Breadcrumb
     {
@@ -83,7 +83,7 @@ final class ExperienceService
             
             return $this->sendNoContent();
         } catch (ORMException $e) {
-            $this->addFlash('Une erreur est survenue lors de l\'expérience !', 'danger');
+            $this->addFlash('Une erreur est survenue lors de l\'enregistrement de l\'expérience !', 'danger');
             return $this->sendJson(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (Exception $e) {
             $this->addFlash($e->getMessage(), 'danger');
