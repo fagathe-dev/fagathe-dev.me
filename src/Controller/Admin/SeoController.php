@@ -6,6 +6,7 @@ use App\Entity\Seo;
 use App\Form\Admin\Seo\PageType;
 use App\Service\Admin\SEOService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,8 +62,14 @@ final class SeoController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]
-    public function deleteSEO(): Response
+    public function deleteSEO(Seo $seo): JsonResponse
     {
-        return $this->render('admin/seo/index.html.twig');
+        $response = $this->service->delete($seo);
+
+        return $this->json(
+            $response->data,
+            $response->status,
+            $response->headers,
+        );
     }
 }
