@@ -14,8 +14,8 @@
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Nom</th>
           <th scope="col">Attribut</th>
+          <th scope="col">Nom</th>
           <th scope="col">Page</th>
           <th scope="col"></th>
         </tr>
@@ -24,12 +24,12 @@
         {% for tag in seoTags %}
           <tr>
             <th scope="row">{{ tag.id }}</th>
-            <td>{{ tag.name }}</td>
             <td>{{ tag.attribute }}</td>
+            <td>{{ tag.name }}</td>
             <td>{{ tag.seo.name }}</td>
             <td>
               <a 
-                href="{{ path('admin_seo_tags_edit', { id : tag.id }) }}" 
+                href="{{ path('admin_seo_tag_edit', { id : tag.id }) }}" 
                 class="btn btn-info" 
                 title="Modifier la balise {{ tag.name }}"
               >

@@ -73,6 +73,31 @@ final class SEOService
     /**
      * @return array
      */
+    public function editSEOTag(Seo $seo): array
+    {
+        $breadcrumb = $this->breadcrumb([
+            new BreadcrumbItem('Page ' . $seo->getName(), $this->urlGenerator->generate('admin_seo_show', ['id' => $seo->getId()])),
+            new BreadcrumbItem('Modifier une balise')
+        ]);
+
+        return compact('breadcrumb');
+    }
+
+    /**
+     * @return array
+     */
+    public function editTag(): array
+    {
+        $breadcrumb = $this->breadcrumbTags([
+            new BreadcrumbItem('Modifier une balise')
+        ]);
+
+        return compact('breadcrumb');
+    }
+
+    /**
+     * @return array
+     */
     public function editSEO(): array
     {
         $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Modifier une page')]);

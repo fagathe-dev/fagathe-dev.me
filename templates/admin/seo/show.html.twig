@@ -16,8 +16,8 @@
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Nom</th>
           <th scope="col">Attribut</th>
+          <th scope="col">Nom</th>
           <th scope="col">Contenu</th>
           <th scope="col"></th>
         </tr>
@@ -26,8 +26,8 @@
         {% for tag in seo.tags %}
           <tr>
             <th scope="row">{{ tag.id }}</th>
-            <td>{{ tag.name }}</td>
             <td>{{ tag.attribute }}</td>
+            <td>{{ tag.name }}</td>
             <td>{{ tag.content|slice_text(10) }}</td>
             <td>
               <a 
