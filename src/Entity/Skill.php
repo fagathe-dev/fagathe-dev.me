@@ -17,16 +17,18 @@ class Skill
     private ?int $id = null;
 
     #[ORM\Column(length: 120)]
-    #[Assert\NotBlank(message: 'Le nom est obligatoire !', allowNull: true)]
+    #[Assert\NotBlank(message: 'Le nom est obligatoire !')]
     private ?string $name = null;
 
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $level = null;
 
     #[ORM\Column(length: 10, nullable: true)]
+    #[Assert\NotBlank(message: 'Veuillez sélectionner une valeur !')]
     private ?string $type = null;
 
     #[ORM\Column(length: 180, nullable: true)]
+    #[Assert\NotBlank(message: 'Le nom est obligatoire !', allowNull: true)]
     private ?string $logo = null;
 
     private ?string $niceType = null;
