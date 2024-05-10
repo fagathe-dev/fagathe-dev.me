@@ -27,7 +27,7 @@ class TrackingEvent
     #[ORM\Column(nullable: true)]
     private ?int $nbRequest = null;
 
-    #[ORM\OneToMany(targetEntity: TrackingEventLog::class, mappedBy: 'trackingEvent')]
+    #[ORM\OneToMany(targetEntity: TrackingEventLog::class, mappedBy: 'trackingEvent', cascade: ['persist', 'remove'])]
     private Collection $logs;
 
     public function __construct()
