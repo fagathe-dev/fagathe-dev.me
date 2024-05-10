@@ -54,6 +54,16 @@ final class SkillService
     }
 
     /**
+     * @return array
+     */
+    public function edit(): array
+    {
+        $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Modifier une skill')]);
+
+        return compact('breadcrumb',);
+    }
+
+    /**
      * @param Request $request
      */
     private function getPagination(Request $request): array

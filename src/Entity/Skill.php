@@ -65,7 +65,7 @@ class Skill
 
     public function getNiceLevel(): ?string
     {
-        $this->niceLevel = $this->level === null ? null : TypeSkillEnum::match($this->level);
+        $this->niceLevel = $this->level === null ? null : LevelSkillEnum::match($this->level);
 
         return $this->niceLevel;
     }
