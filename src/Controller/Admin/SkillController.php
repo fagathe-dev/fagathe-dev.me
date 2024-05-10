@@ -6,6 +6,7 @@ use App\Entity\Skill;
 use App\Form\Admin\SkillType;
 use App\Service\Admin\SkillService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -60,8 +61,14 @@ final class SkillController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]
-    public function delete(): Response
+    public function delete(Skill $skill): JsonResponse
     {
-        return $this->render('');
+        $response = $this->service->delete($skill);
+
+        return $this->json(
+            $response->data,
+            $response->status,
+            $response->headers,
+        );
     }
 }
