@@ -32,7 +32,8 @@ final class LevelSkillEnum implements EnumInterface
         return match ($value) {
             self::LEVEL_DEBUTANT => 'Les bases',
             self::LEVEL_INTERMEDIAIRE => 'Intermédiaire',
-            default => 'Avancé',
+            self::LEVEL_AVANCE => 'Avancé',
+            default => '',
         };
     }
 

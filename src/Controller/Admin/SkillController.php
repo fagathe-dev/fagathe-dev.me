@@ -44,9 +44,19 @@ final class SkillController extends AbstractController
     }
 
     #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
-    public function edit(): Response
+    public function edit(Skill $skill, Request $request): Response
     {
-        return $this->render('admin/skill/edit.html.twig');
+        $form = $this->createForm(SkillType::class, $skill);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->service->save($skill)) {
+                $this->addFlash('info', 'Skill modifiée 👍');
+
+                return $this->redirectToRoute('admin_skill_edit', ['id' => $skill->getId()]);
+            }
+        }
+        return $this->render('admin/skill/edit.html.twig', [...compact('form'), ...$this->service->edit()]);
     }
 
     #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]
