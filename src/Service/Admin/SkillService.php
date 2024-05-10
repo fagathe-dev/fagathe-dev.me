@@ -11,7 +11,10 @@ use App\Utils\ServiceTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
 use Exception;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -25,18 +28,48 @@ final class SkillService
         private Security $security,
         private SkillRepository $repository,
         private UrlGeneratorInterface $urlGenerator,
+        private PaginatorInterface $paginator,
     ) {
     }
 
     /**
      * @return array
      */
-    public function index(): array
+    public function index(Request $request): array
     {
-        $breadcrumb = $this->breadcrumb();
-        $skills = $this->repository->findAll();
+        return [
+            'breadcrumb' => $this->breadcrumb(),
+            ...$this->getPagination($request),
+        ];
+    }
 
-        return compact('skills', 'breadcrumb');
+    /**
+     * @param Request $request
+     */
+    private function getPagination(Request $request): array
+    {
+
+        $data = $this->repository->findAll();
+        $page = $request->query->getInt('page', 1);
+        $nbItems = $request->query->getInt('nbItems', 10);
+
+        $pagination = $this->paginator->paginate(
+            $data,
+            /* query NOT result */
+            $page,
+            /*page number*/
+            $nbItems, /*limit per page*/
+        );
+
+        $maxPage = ceil($pagination->getTotalItemCount() / $pagination->getItemNumberPerPage());
+
+        if ($page > $maxPage) {
+            $numberCurrentResults = $pagination->getTotalItemCount();
+        } else {
+            $numberCurrentResults = ($pagination->getCurrentPageNumber() - 1) * $pagination->getItemNumberPerPage() + count($pagination->getItems());
+        }
+
+        return compact('pagination', 'numberCurrentResults');
     }
 
     /**

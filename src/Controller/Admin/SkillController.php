@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Service\Admin\SkillService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,9 +18,9 @@ final class SkillController extends AbstractController
     }
 
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return $this->render('admin/skill/index.html.twig', $this->service->index());
+        return $this->render('admin/skill/index.html.twig', $this->service->index($request));
     }
 
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
