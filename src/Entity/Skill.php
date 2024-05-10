@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use App\Enum\LevelSkillEnum;
+use App\Enum\TypeSkillEnum;
 use App\Repository\SkillRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SkillRepository::class)]
 class Skill
@@ -14,16 +17,22 @@ class Skill
     private ?int $id = null;
 
     #[ORM\Column(length: 120)]
+    #[Assert\NotBlank(message: 'Le nom est obligatoire !')]
     private ?string $name = null;
 
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $level = null;
 
     #[ORM\Column(length: 10, nullable: true)]
+    #[Assert\NotBlank(message: 'Veuillez sélectionner une valeur !')]
     private ?string $type = null;
 
     #[ORM\Column(length: 180, nullable: true)]
+    #[Assert\NotBlank(message: 'Le nom est obligatoire !', allowNull: true)]
     private ?string $logo = null;
+
+    private ?string $niceType = null;
+    private ?string $niceLevel = null;
 
     public function getId(): ?int
     {
@@ -54,6 +63,13 @@ class Skill
         return $this;
     }
 
+    public function getNiceLevel(): ?string
+    {
+        $this->niceLevel = $this->level === null ? null : LevelSkillEnum::match($this->level);
+
+        return $this->niceLevel;
+    }
+
     public function getType(): ?string
     {
         return $this->type;
@@ -64,6 +80,12 @@ class Skill
         $this->type = $type;
 
         return $this;
+    }
+
+    public function getNiceType(): ?string
+    {
+        $this->niceType = $this->type === null ? null : TypeSkillEnum::match($this->type);
+        return $this->niceType;
     }
 
     public function getLogo(): ?string

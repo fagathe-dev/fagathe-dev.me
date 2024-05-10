@@ -266,6 +266,7 @@ final class SEOService
         }
         return null;
     }
+    
     /**
      * @param  mixed $request
      * @return PaginationInterface

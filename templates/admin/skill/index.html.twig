@@ -1,0 +1,69 @@
+{% extends "admin/layout.html.twig" %}
+
+{% block content %}
+  <div class="row">
+    <h1 class="h4 d-flex justify-content-between align-items-center">
+      Liste des skills
+      <a href="{{ url("admin_skill_create") }}" title="Ajouter une skill" class="btn btn-success btn-sm">
+        <i class="bi bi-plus-lg"></i>
+      </a>
+    </h1>
+  </div>
+  <div class="">
+    <table class="table table-responsive table-card mb-1 w-100">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Type</th>
+          <th scope="col">Niveau</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for skill in pagination %}
+          <tr>
+            <th scope="row">{{ skill.id }}</th>
+            <td>{{ skill.name }}</td>
+            <td>{{ skill.niceType }}</td>
+            <td>{{ skill.niceLevel }}</td>
+            <td>
+              <a 
+                href="{{ path('admin_skill_edit', { id : skill.id }) }}" 
+                class="btn btn-info" 
+                title="Modifier la skill chez {{ skill.name }}"
+              >
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <a 
+                href="{{ path('admin_skill_delete', { id : skill.id }) }}" 
+                class="btn btn-danger" 
+                title="Supprimer la skill chez {{ skill.name }}"
+                onclick="deleteSkill(event);"
+              >
+                <i class="bi bi-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="d-flex justify-content-between mt-4">
+    <div class="result-infos">
+      {# TODO: afficher le nombre de résultats pour voir la progression #}
+      <span class="fw-bold">{{ numberCurrentResults }}</span>
+      sur 
+      {{ pagination.getTotalItemCount }} résultats
+    </div>
+    <div class="pagination-wrap hstack">
+      {{ knp_pagination_render(pagination) }}
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block js %}
+  <script src="{{ asset('js/admin/skill.js') }}"></script>
+{% endblock %}
