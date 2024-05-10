@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Skill;
+use App\Form\Admin\SkillType;
 use App\Service\Admin\SkillService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,9 +26,13 @@ final class SkillController extends AbstractController
     }
 
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        return $this->render('admin/skill/index.html.twig');
+        $skill = new Skill;
+        $form = $this->createForm(SkillType::class, $skill);
+        $form->handleRequest($request);
+
+        return $this->render('admin/skill/create.html.twig', [...compact('form'), ...$this->service->create()]);
     }
 
     #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
