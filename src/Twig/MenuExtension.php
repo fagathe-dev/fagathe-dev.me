@@ -56,10 +56,8 @@ final class MenuExtension extends AbstractExtension
                 new MenuItem('Ajouter une balise', $this->urlGenerator->generate('admin_seo_tags_create')),
             ]))
             ->addItem(new MenuItemGroup('Projet', [
-                new MenuItem('Gestion des projets', '#'),
-                new MenuItem('Ajouter un projet', '#'),
-                new MenuItem('Gestion des balises', '#'),
-                new MenuItem('Ajouter une balise', '#'),
+                new MenuItem('Gestion des projets',$this->urlGenerator->generate('admin_project_index')),
+                new MenuItem('Ajouter un projet',$this->urlGenerator->generate('admin_project_index')),
             ]))
             ->addItem(new MenuItemGroup('Contact', [
                 new MenuItem('Gestion des contacts', '#'),
