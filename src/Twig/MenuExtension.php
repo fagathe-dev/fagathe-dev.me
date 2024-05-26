@@ -57,7 +57,7 @@ final class MenuExtension extends AbstractExtension
             ]))
             ->addItem(new MenuItemGroup('Projet', [
                 new MenuItem('Gestion des projets',$this->urlGenerator->generate('admin_project_index')),
-                new MenuItem('Ajouter un projet',$this->urlGenerator->generate('admin_project_index')),
+                new MenuItem('Ajouter un projet',$this->urlGenerator->generate('admin_project_create')),
             ]))
             ->addItem(new MenuItemGroup('Contact', [
                 new MenuItem('Gestion des contacts', '#'),

@@ -1,37 +1,51 @@
 {{ form_start(form) }}
+  <div class="row">
+    <section class="col-lg-8">
+      {{ form_row(form.name) }}
 
-  {{ form_row(form.name) }}
-  
-  {{ form_row(form.type) }}
+      {{ form_row(form.description, {attr: {rows: 5}}) }}
 
-  {{ form_row(form.start_year) }}
-  
-  {{ form_row(form.end_year) }}
-
-  <!-- store the prototype on the data-prototype attribute -->
-  <div class="group-task-list">
-    <label for="#" class="form-label">
-      Tâches
-      <span id="add-task" class="btn btn-sm btn-primary" data-list-selector="#tasks-field-list"><i class="bi bi-plus-lg"></i></span>
-    </label>
-    <div 
-      id="tasks-field-list"
-      data-prototype="{{ form_widget(form.tasks.vars.prototype)|e('html_attr') }}"
-      data-widget-tags="{{ '<div></div>'|e }}"
-      data-widget-counter="{{ form.tasks|length }}"
-    >
-      {% for task in form.tasks %}
-        <div class="row">
-          <div class="col-11">
-            {{ form_row(task) }}
-          </div>
-          <div class="col-1">
-            <span class="btn btn-delete text-danger" onclick="deleteTask(event)"><i class="bi bi-x-square"></i></span>
-          </div>
+      <!-- store the prototype on the data-prototype attribute -->
+      <div class="group-task-list">
+        <label for="#" class="form-label">
+          Tâches
+          <span id="add-task" class="btn btn-sm btn-primary" data-list-selector="#tasks-field-list"><i class="bi bi-plus-lg"></i></span>
+        </label>
+        <div 
+          id="tasks-field-list"
+          data-prototype="{{ form_widget(form.tasks.vars.prototype)|e('html_attr') }}"
+          data-widget-tags="{{ '<div></div>'|e }}"
+          data-widget-counter="{{ form.tasks|length }}"
+        >
+          {% for task in form.tasks %}
+            <div class="row">
+              <div class="col-11">
+                {{ form_row(task) }}
+              </div>
+              <div class="col-1">
+                <span class="btn btn-delete text-danger" onclick="deleteTask(event)"><i class="bi bi-x-square"></i></span>
+              </div>
+            </div>
+          {% endfor %}
         </div>
-      {% endfor %}
-    </div>
-  </div> 
-
-  {{ form_rest(form) }}
+      </div>
+    </section>
+    <aside class="col-lg-4">
+      {{ form_row(form.save) }}
+      <div class="panel mb-3">
+        <div class="panel-header">Informations</div>
+        <div class="panel-body">
+          {{ form_row(form.type) }}
+          {{ form_row(form.isPublished) }}
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">Image</div>
+        <div class="panel-body">
+          {{ form_row(form.uploadedImage) }}
+        </div>
+      </div>
+    </aside>
+  </div>
+  {{ form_widget(form) }}
 {{ form_end(form) }}

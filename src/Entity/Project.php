@@ -129,6 +129,12 @@ class Project
 
     public function getTasks(): ?array
     {
+        if (is_null($this->tasks)) {
+            $this->tasks = [''];
+
+            return $this->tasks;
+        }
+
         return $this->tasks;
     }
 
