@@ -2,12 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Service\Breadcrumb\Breadcrumb;
-use App\Service\Breadcrumb\BreadcrumbItem;
-use App\Service\Menu\Menu;
-use App\Service\Menu\MenuGenerator;
-use App\Service\Menu\MenuItem;
-use App\Service\Menu\MenuItemGroup;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
