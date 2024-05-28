@@ -4,15 +4,19 @@ namespace App\Service\Admin;
 
 use App\Entity\Project;
 use App\Entity\User;
+use App\Helpers\DateTimeHelperTrait;
 use App\Repository\ProjectRepository;
 use App\Service\Breadcrumb\Breadcrumb;
 use App\Service\Breadcrumb\BreadcrumbItem;
+use App\Service\Uploader\Uploader;
 use App\Utils\ServiceTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -21,6 +25,9 @@ final class ProjectService
 {
 
     use ServiceTrait;
+    use DateTimeHelperTrait;
+
+    private ?Filesystem $fs = null;
 
     public function __construct(
         private EntityManagerInterface $manager,
@@ -28,7 +35,9 @@ final class ProjectService
         private ProjectRepository $repository,
         private UrlGeneratorInterface $urlGenerator,
         private PaginatorInterface $paginator,
+        private Uploader $uploader,
     ) {
+        $this->fs = new Filesystem;
     }
 
     /**
@@ -124,6 +133,55 @@ final class ProjectService
             $this->addFlash($e->getMessage(), 'danger');
             return  $this->sendJson(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * @param Project $project
+     * @param UploadedFile|null $uploadedFile
+     * 
+     * @return bool
+     */
+    public function createAction(Project $project, ?UploadedFile $uploadedFile = null): bool
+    {
+        $project->setCreatedAt($this->now());
+
+        if ($uploadedFile instanceof UploadedFile) {
+            $image = $this->uploader->upload($uploadedFile, ['uploadDir' => 'project', 'type' => 'image']);
+            $project->setImage($image->getUploadedFilePath());
+        }
+
+        return $this->save($project);
+    }
+
+    /**
+     * @param Project $project
+     * 
+     * @return void
+     */
+    private function deleteImage(Project $project): void
+    {
+        if ($project->getImage() !== null) {
+            $this->fs->remove(ROOT_DIR . $project->getImage());
+        }
+    }
+
+    /**
+     * @param Project $project
+     * @param UploadedFile|null $uploadedFile
+     * 
+     * @return bool
+     */
+    public function update(Project $project, ?UploadedFile $uploadedFile = null): bool
+    {
+        $project->setUpdatedAt($this->now());
+
+        if ($uploadedFile instanceof UploadedFile) {
+            $image = $this->uploader->upload($uploadedFile, ['uploadDir' => 'project', 'type' => 'image']);
+            $this->deleteImage($project);
+            $project->setImage($image->getUploadedFilePath());
+        }
+
+        return $this->save($project);
     }
 
     /**

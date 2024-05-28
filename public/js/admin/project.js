@@ -7,7 +7,10 @@ if (addTaskBtn !== undefined) {
 }
 
 if (uploadWidget !== undefined) {
-  uploadWidget.addEventListener("change", (e) => new ImagePreviewer(e));
+  uploadWidget.addEventListener(
+    "change",
+    (e) => new ImagePreviewer(e, { preventSubmit: true })
+  );
 }
 
 /**
