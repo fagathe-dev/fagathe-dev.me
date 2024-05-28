@@ -122,6 +122,7 @@ final class ProjectService
     public function delete(Project $project): object
     {
         try {
+            $this->deleteImage($project);
             $this->manager->remove($project);
             $this->manager->flush();
 
