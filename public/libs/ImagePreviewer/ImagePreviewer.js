@@ -48,7 +48,6 @@ class ImagePreviewer {
    * @returns {void|boolean}
    */
   disableSubmit() {
-    console.dir(this.form);
     if (
       this.options.preventSubmit === true &&
       this.form !== null &&

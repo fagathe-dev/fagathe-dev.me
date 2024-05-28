@@ -34,7 +34,7 @@ final class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->service->save($project)) {
+            if ($this->service->createAction($project, $form->get('uploadedImage')->getData())) {
                 $this->addFlash('info', 'Projet créée 👍');
 
                 return $this->redirectToRoute('admin_project_edit', ['id' => $project->getId()]);
@@ -51,7 +51,7 @@ final class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->service->save($project)) {
+            if ($this->service->update($project, $form->get('uploadedImage')->getData())) {
                 $this->addFlash('info', 'Projet modifiée 👍');
 
                 return $this->redirectToRoute('admin_project_edit', ['id' => $project->getId()]);

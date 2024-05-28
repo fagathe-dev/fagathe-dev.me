@@ -31,7 +31,6 @@
       </div>
     </section>
     <aside class="col-lg-4">
-      {{ form_row(form.save) }}
       <div class="panel mb-3">
         <div class="panel-header">Informations</div>
         <div class="panel-body">
@@ -39,12 +38,13 @@
           {{ form_row(form.isPublished) }}
         </div>
       </div>
-      <div class="panel">
+      <div class="panel mb-3">
         <div class="panel-header">Image</div>
         <div class="panel-body">
           {{ form_row(form.uploadedImage) }}
         </div>
       </div>
+      {{ form_row(form.save) }}
     </aside>
   </div>
   {{ form_widget(form) }}

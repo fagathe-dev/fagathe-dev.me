@@ -208,7 +208,7 @@ class Uploader
      *
      * @return string
      */
-    private function getFileName(): string
+    public function getFileName(): string
     {
         if ($this->getOption('renameFile')) {
             $this->filename = str_replace('.', '', $this->tokenGenerator->generate(length: 40, unique: true)) . '.' . $this->uploadedFile->guessClientExtension();

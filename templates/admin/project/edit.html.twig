@@ -8,6 +8,11 @@
 
 {% endblock %}
 
+{% block css %}
+  <link rel="stylesheet" href="{{ asset('libs/ImagePreviewer/ImagePreviewer.css') }}">  
+{% endblock %}
+
 {% block js %}
+  <script src="{{ asset('libs/ImagePreviewer/ImagePreviewer.js') }}"></script>
   <script src="{{ asset('js/admin/project.js') }}"></script>
 {% endblock %}

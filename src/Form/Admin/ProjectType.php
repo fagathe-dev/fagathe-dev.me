@@ -63,6 +63,7 @@ class ProjectType extends AbstractType
                 'choices' => TypeProjectEnum::choices(),
                 'multiple' => false,
                 'expanded' => false,
+                'preferred_choices' => [TypeProjectEnum::TYPE_BACK]
             ])
             ->add('tasks', CollectionType::class, [
                 'label' => 'Tâches',
@@ -73,6 +74,7 @@ class ProjectType extends AbstractType
                 'by_reference' => false,
             ])
             ->add('isPublished', CheckboxType::class, [
+                'required' => false,
                 'label' => 'Publier',
                 'row_attr' => ['class' => 'form-check form-switch'],
                 'label_attr' => ['role' => 'switch',]
