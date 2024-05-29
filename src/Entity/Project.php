@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProjectRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
@@ -15,21 +16,23 @@ class Project
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: 'Ce champs est obligatoire !')]
     private ?string $name = null;
-
+    
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
-
+    
     #[ORM\Column(nullable: true)]
     private ?string $image = null;
-
+    
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
-
+    
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
-
+    
     #[ORM\Column(length: 15)]
+    #[Assert\NotBlank(message: 'Ce champs est obligatoire !')]
     private ?string $type = null;
 
     #[ORM\Column(nullable: true)]
@@ -129,6 +132,12 @@ class Project
 
     public function getTasks(): ?array
     {
+        if (is_null($this->tasks)) {
+            $this->tasks = [''];
+
+            return $this->tasks;
+        }
+
         return $this->tasks;
     }
 
@@ -144,7 +153,7 @@ class Project
         return $this->isPublished;
     }
 
-    public function setPublished(?bool $isPublished): static
+    public function setIsPublished(?bool $isPublished): static
     {
         $this->isPublished = $isPublished;
 

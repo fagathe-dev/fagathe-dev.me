@@ -3,8 +3,8 @@
 {% block content %}
   <div class="row">
     <h1 class="h4 d-flex justify-content-between align-items-center">
-      Liste des skills
-      <a href="{{ url("admin_skill_create") }}" title="Ajouter une skill" class="btn btn-success btn-sm">
+      Liste des expériences
+      <a href="{{ url("admin_project_create") }}" title="Ajouter un projet" class="btn btn-success btn-sm">
         <i class="bi bi-plus-lg"></i>
       </a>
     </h1>
@@ -16,30 +16,28 @@
           <th scope="col">ID</th>
           <th scope="col">Nom</th>
           <th scope="col">Type</th>
-          <th scope="col">Niveau</th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        {% for skill in pagination %}
+        {% for project in pagination %}
           <tr>
-            <th scope="row">{{ skill.id }}</th>
-            <td>{{ skill.name }}</td>
-            <td>{{ skill.niceType }}</td>
-            <td>{{ skill.niceLevel }}</td>
+            <th scope="row">{{ project.id }}</th>
+            <td>{{ project.name }}</td>
+            <td>{{ project.type }}</td>
             <td>
               <a 
-                href="{{ path('admin_skill_edit', { id : skill.id }) }}" 
+                href="{{ path('admin_project_edit', { id : project.id }) }}" 
                 class="btn btn-info" 
-                title="Modifier la skill chez {{ skill.name }}"
+                title="Modifier le projet chez {{ project.name }}"
               >
                 <i class="bi bi-pencil-square"></i>
               </a>
               <a 
-                href="{{ path('admin_skill_delete', { id : skill.id }) }}" 
+                href="{{ path('admin_project_delete', { id : project.id }) }}" 
                 class="btn btn-danger" 
-                title="Supprimer la skill chez {{ skill.name }}"
-                onclick="deleteSkill(event);"
+                title="Supprimer le projet chez {{ project.name }}"
+                onclick="deleteExperience(event);"
               >
                 <i class="bi bi-trash"></i>
               </a>
@@ -48,7 +46,7 @@
         {% endfor %}
       </tbody>
     </table>
-  </div>
+  </div> 
   
   <div class="d-flex justify-content-between mt-4">
     <div class="result-infos">
@@ -64,5 +62,5 @@
 {% endblock %}
 
 {% block js %}
-  <script src="{{ asset('js/admin/skill.js') }}"></script>
+  <script src="{{ asset('js/admin/project.js') }}"></script>
 {% endblock %}
