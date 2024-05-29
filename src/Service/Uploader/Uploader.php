@@ -200,7 +200,7 @@ class Uploader
      */
     public function getUploadedFilePath(): string
     {
-        return DEFAULT_UPLOAD_DIR . $this->getOption('uploadDir') . DIRECTORY_SEPARATOR . $this->getFilename();
+        return DIRECTORY_SEPARATOR .  DEFAULT_UPLOAD_DIR . $this->getOption('uploadDir') . DIRECTORY_SEPARATOR . $this->getFilename();
     }
 
     /**
@@ -210,10 +210,12 @@ class Uploader
      */
     public function getFileName(): string
     {
-        if ($this->getOption('renameFile')) {
-            $this->filename = str_replace('.', '', $this->tokenGenerator->generate(length: 40, unique: true)) . '.' . $this->uploadedFile->guessClientExtension();
-        } else {
-            $this->filename = $this->uploadedFile->getClientOriginalName();
+        if ($this->filename === null) {
+            if ($this->getOption('renameFile')) {
+                $this->filename = str_replace('.', '', $this->tokenGenerator->generate(length: 40, unique: true)) . '.' . $this->uploadedFile->guessClientExtension();
+            } else {
+                $this->filename = $this->uploadedFile->getClientOriginalName();
+            }
         }
 
         return $this->filename;

@@ -42,7 +42,7 @@ class ProjectType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '10m',
                         'mimeTypes' => [
                             'image/bmp',
                             'image/gif',
