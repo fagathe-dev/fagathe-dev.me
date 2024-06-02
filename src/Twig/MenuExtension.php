@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use App\Enum\StateContactEnum;
 use App\Service\Menu\Menu;
 use App\Service\Menu\MenuGenerator;
 use App\Service\Menu\MenuItem;
@@ -56,12 +57,12 @@ final class MenuExtension extends AbstractExtension
                 new MenuItem('Ajouter une balise', $this->urlGenerator->generate('admin_seo_tags_create')),
             ]))
             ->addItem(new MenuItemGroup('Projet', [
-                new MenuItem('Gestion des projets',$this->urlGenerator->generate('admin_project_index')),
-                new MenuItem('Ajouter un projet',$this->urlGenerator->generate('admin_project_create')),
+                new MenuItem('Gestion des projets', $this->urlGenerator->generate('admin_project_index')),
+                new MenuItem('Ajouter un projet', $this->urlGenerator->generate('admin_project_create')),
             ]))
             ->addItem(new MenuItemGroup('Contact', [
-                new MenuItem('Gestion des contacts', '#'),
-                new MenuItem('Non-lus', '#'),
+                new MenuItem('Gestion des contacts',  $this->urlGenerator->generate('admin_contact_index')),
+                new MenuItem('Non-lus',  $this->urlGenerator->generate('admin_contact_index', ['state' => StateContactEnum::STATE_NON_LU])),
             ]))
             ->addItem(new MenuItemGroup('Tracking', [
                 new MenuItem('Gestion des évènements', '#'),

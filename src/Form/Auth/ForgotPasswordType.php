@@ -20,7 +20,7 @@ class ForgotPasswordType extends AbstractType
             ->add('save', SubmitType::class, [
                 'label' => 'Envoyer',
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => 'btn-primary'
                 ]
             ]);
     }

@@ -72,3 +72,19 @@ const deleteExperience = async (e) => {
     return errorHTTPRequest();
   }
 };
+
+const url = new URL(location.href);
+const searchParams = url.searchParams
+
+if (searchParams?.size > 0) {
+  searchParams.forEach((v, k) => {
+    if (v === "") {
+      searchParams.delete(k);
+      window.history.pushState({}, '', url)
+    }
+    const field = document.querySelector(`[name="${k}"]`);
+    if (field instanceof Element) {
+      field.querySelector(`option[value="${v}"]`).selected = true;
+    }
+  });
+}

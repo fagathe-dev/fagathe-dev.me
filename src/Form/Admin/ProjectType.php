@@ -63,7 +63,6 @@ class ProjectType extends AbstractType
                 'choices' => TypeProjectEnum::choices(),
                 'multiple' => false,
                 'expanded' => false,
-                'preferred_choices' => [TypeProjectEnum::TYPE_BACK]
             ])
             ->add('tasks', CollectionType::class, [
                 'label' => 'Tâches',
@@ -82,7 +81,7 @@ class ProjectType extends AbstractType
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => 'btn-primary'
                 ]
             ]);
     }

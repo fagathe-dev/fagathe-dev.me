@@ -43,7 +43,7 @@ final class ContactService
     /**
      * @return array
      */
-    public function index(Request $request): array
+    public function index(Request $request, array $criterias = []): array
     {
         return [
             'breadcrumb' => $this->breadcrumb(),
@@ -76,8 +76,7 @@ final class ContactService
      */
     private function getPagination(Request $request): array
     {
-
-        $data = $this->repository->findAll();
+        $data = $this->repository->filter($request->query->all());
         $page = $request->query->getInt('page', 1);
         $nbItems = $request->query->getInt('nbItems', 10);
 

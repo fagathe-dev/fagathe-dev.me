@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Contact;
+use App\Enum\StateContactEnum;
+use App\Enum\SubjectContactEnum;
+use App\Form\Admin\AdminFilterContactType;
 use App\Form\Admin\ContactType;
 use App\Service\Admin\ContactService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,36 +21,23 @@ final class ContactController extends AbstractController
     public function __construct(
         private ContactService $service
     ) {
-    }   
-
-    #[Route('', name: 'index', methods: ['GET'])]
-    public function index(Request $request): Response
-    {
-        return $this->render('admin/contact/index.html.twig', $this->service->index($request));
     }
 
-    #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
-    public function create(Request $request): Response
+    #[Route('', name: 'index', methods: ['GET', 'POST'])]
+    public function index(Request $request): Response
     {
-        $contact = new Contact;
-        $form = $this->createForm(ContactType::class, $contact);
-        $form->handleRequest($request);
+        $filters = [
+            'state' => ['data' => StateContactEnum::choices(), 'label' => 'Statut'], 
+            'subject' => ['data' => SubjectContactEnum::choices(), 'label' => 'Type']
+        ];
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->service->createAction($contact, $form->get('uploadedImage')->getData())) {
-                $this->addFlash('info', 'Projet créée 👍');
-
-                return $this->redirectToRoute('admin_contact_edit', ['id' => $contact->getId()]);
-            }
-        }
-
-        return $this->render('admin/contact/create.html.twig', [...compact('form'), ...$this->service->create()]);
+        return $this->render('admin/contact/index.html.twig', [...compact('filters'), ...$this->service->index($request)]);
     }
 
     #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
     public function edit(Contact $contact, Request $request): Response
     {
-        $form = $this->createForm(ContactType::class, $contact);
+        $form = $this->createForm(AdminFilterContactType::class, $contact);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
