@@ -27,7 +27,7 @@ final class ContactController extends AbstractController
     public function index(Request $request): Response
     {
         $filters = [
-            'state' => ['data' => StateContactEnum::choices(), 'label' => 'Statut'], 
+            'state' => ['data' => StateContactEnum::choices(), 'label' => 'Statut'],
             'subject' => ['data' => SubjectContactEnum::choices(), 'label' => 'Type']
         ];
 
@@ -37,17 +37,17 @@ final class ContactController extends AbstractController
     #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
     public function edit(Contact $contact, Request $request): Response
     {
-        $form = $this->createForm(AdminFilterContactType::class, $contact);
-        $form->handleRequest($request);
+        // $form = $this->createForm(AdminFilterContactType::class, $contact);
+        // $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->service->update($contact, $form->get('uploadedImage')->getData())) {
-                $this->addFlash('info', 'Projet modifiée 👍');
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     if ($this->service->update($contact, $form->get('uploadedImage')->getData())) {
+        //         $this->addFlash('info', 'Projet modifiée 👍');
 
-                return $this->redirectToRoute('admin_contact_edit', ['id' => $contact->getId()]);
-            }
-        }
-        return $this->render('admin/contact/edit.html.twig', [...compact('form'), ...$this->service->edit()]);
+        //         return $this->redirectToRoute('admin_contact_edit', ['id' => $contact->getId()]);
+        //     }
+        // }
+        return $this->render('admin/contact/edit.html.twig', $this->service->edit($contact));
     }
 
     #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]
