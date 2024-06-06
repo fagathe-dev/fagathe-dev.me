@@ -42,7 +42,7 @@ class ProjectType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '10m',
                         'mimeTypes' => [
                             'image/bmp',
                             'image/gif',
@@ -63,7 +63,6 @@ class ProjectType extends AbstractType
                 'choices' => TypeProjectEnum::choices(),
                 'multiple' => false,
                 'expanded' => false,
-                'preferred_choices' => [TypeProjectEnum::TYPE_BACK]
             ])
             ->add('tasks', CollectionType::class, [
                 'label' => 'Tâches',
@@ -82,7 +81,7 @@ class ProjectType extends AbstractType
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => 'btn-primary'
                 ]
             ]);
     }

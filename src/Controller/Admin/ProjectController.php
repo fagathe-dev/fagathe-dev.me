@@ -41,7 +41,7 @@ final class ProjectController extends AbstractController
             }
         }
 
-        return $this->render('admin/project/create.html.twig', [...compact('form'), ...$this->service->create()]);
+        return $this->render('admin/project/create.html.twig', [...compact('form', 'project'), ...$this->service->create()]);
     }
 
     #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
@@ -57,7 +57,7 @@ final class ProjectController extends AbstractController
                 return $this->redirectToRoute('admin_project_edit', ['id' => $project->getId()]);
             }
         }
-        return $this->render('admin/project/edit.html.twig', [...compact('form'), ...$this->service->edit()]);
+        return $this->render('admin/project/edit.html.twig', [...compact('form', 'project'), ...$this->service->edit()]);
     }
 
     #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]

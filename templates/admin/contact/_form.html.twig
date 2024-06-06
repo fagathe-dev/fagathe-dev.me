@@ -41,9 +41,6 @@
       <div class="panel mb-3">
         <div class="panel-header">Image</div>
         <div class="panel-body">
-          {% if project.image != null %}
-            <img class="previewer-image" src="{{ project.image }}" srcset="{{ project.image }}">
-          {% endif %}
           {{ form_row(form.uploadedImage) }}
         </div>
       </div>

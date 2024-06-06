@@ -45,7 +45,7 @@ class ResetPasswordType extends AbstractType
             ->add('save', SubmitType::class, [
                 'label' => 'Réinitialiser',
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => 'btn-primary'
                 ]
             ]);
     }

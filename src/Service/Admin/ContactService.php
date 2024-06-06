@@ -2,10 +2,11 @@
 
 namespace App\Service\Admin;
 
-use App\Entity\Project;
+use App\Entity\Contact;
 use App\Entity\User;
+use App\Enum\StateContactEnum;
 use App\Helpers\DateTimeHelperTrait;
-use App\Repository\ProjectRepository;
+use App\Repository\ContactRepository;
 use App\Service\Breadcrumb\Breadcrumb;
 use App\Service\Breadcrumb\BreadcrumbItem;
 use App\Service\Uploader\Uploader;
@@ -21,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final class ProjectService
+final class ContactService
 {
 
     use ServiceTrait;
@@ -32,7 +33,7 @@ final class ProjectService
     public function __construct(
         private EntityManagerInterface $manager,
         private Security $security,
-        private ProjectRepository $repository,
+        private ContactRepository $repository,
         private UrlGeneratorInterface $urlGenerator,
         private PaginatorInterface $paginator,
         private Uploader $uploader,
@@ -43,7 +44,7 @@ final class ProjectService
     /**
      * @return array
      */
-    public function index(Request $request): array
+    public function index(Request $request, array $criterias = []): array
     {
         return [
             'breadcrumb' => $this->breadcrumb(),
@@ -56,7 +57,7 @@ final class ProjectService
      */
     public function create(): array
     {
-        $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Ajouter un projet')]);
+        $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Ajouter un contact')]);
 
         return compact('breadcrumb',);
     }
@@ -64,11 +65,15 @@ final class ProjectService
     /**
      * @return array
      */
-    public function edit(): array
+    public function edit(Contact $contact): array
     {
-        $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Modifier un projet')]);
+        $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Modifier un contact')]);
 
-        return compact('breadcrumb',);
+        if ($contact->getState() === StateContactEnum::STATE_NON_LU) {
+            $this->update($contact->setState(StateContactEnum::STATE_LU));
+        }
+
+        return compact('breadcrumb', 'contact',);
     }
 
     /**
@@ -76,8 +81,7 @@ final class ProjectService
      */
     private function getPagination(Request $request): array
     {
-
-        $data = $this->repository->findAll();
+        $data = $this->repository->filter($request->query->all());
         $page = $request->query->getInt('page', 1);
         $nbItems = $request->query->getInt('nbItems', 10);
 
@@ -109,26 +113,25 @@ final class ProjectService
     public function breadcrumb(array $items = []): Breadcrumb
     {
         return new Breadcrumb([
-            new BreadcrumbItem('Liste des projets', $this->urlGenerator->generate('admin_project_index')),
+            new BreadcrumbItem('Liste des contacts', $this->urlGenerator->generate('admin_contact_index')),
             ...$items
         ]);
     }
 
     /**
-     * @param Project $project
+     * @param Contact $contact
      * 
      * @return object
      */
-    public function delete(Project $project): object
+    public function delete(Contact $contact): object
     {
         try {
-            $this->deleteImage($project);
-            $this->manager->remove($project);
+            $this->manager->remove($contact);
             $this->manager->flush();
 
             return $this->sendNoContent();
         } catch (ORMException $e) {
-            $this->addFlash('Une erreur est survenue lors de l\'enregistrement du projet !', 'danger');
+            $this->addFlash('Une erreur est survenue lors de l\'enregistrement du contact !', 'danger');
             return $this->sendJson(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (Exception $e) {
             $this->addFlash($e->getMessage(), 'danger');
@@ -137,64 +140,39 @@ final class ProjectService
     }
 
     /**
-     * @param Project $project
-     * @param UploadedFile|null $uploadedFile
+     * @param Contact $contact
      * 
      * @return bool
      */
-    public function createAction(Project $project, ?UploadedFile $uploadedFile = null): bool
+    public function createAction(Contact $contact): bool
     {
-        $project->setCreatedAt($this->now());
+        $contact->setCreatedAt($this->now());
 
-        if ($uploadedFile instanceof UploadedFile) {
-            $image = $this->uploader->upload($uploadedFile, ['uploadDir' => 'project', 'type' => 'image']);
-            $project->setImage($image->getUploadedFilePath());
-        }
-
-        return $this->save($project);
+        return $this->save($contact);
     }
 
     /**
-     * @param Project $project
-     * 
-     * @return void
-     */
-    private function deleteImage(Project $project): void
-    {
-        if ($project->getImage() !== null) {
-            $this->fs->remove(ROOT_DIR . $project->getImage());
-        }
-    }
-
-    /**
-     * @param Project $project
-     * @param UploadedFile|null $uploadedFile
+     * @param Contact $contact
      * 
      * @return bool
      */
-    public function update(Project $project, ?UploadedFile $uploadedFile = null): bool
+    public function update(Contact $contact): bool
     {
-        $project->setUpdatedAt($this->now());
+        $contact->setUpdatedAt($this->now());
 
-        if ($uploadedFile instanceof UploadedFile) {
-            $image = $this->uploader->upload($uploadedFile, ['uploadDir' => 'project', 'type' => 'image']);
-            $this->deleteImage($project);
-            $project->setImage($image->getUploadedFilePath());
-        }
-
-        return $this->save($project);
+        return $this->save($contact);
     }
 
     /**
      * save
      *
-     * @param  Project $project
+     * @param  Contact $contact
      * @return bool
      */
-    public function save(Project $project): bool
+    public function save(Contact $contact): bool
     {
         try {
-            $this->manager->persist($project);
+            $this->manager->persist($contact);
             $this->manager->flush();
             return true;
         } catch (ORMException $e) {
