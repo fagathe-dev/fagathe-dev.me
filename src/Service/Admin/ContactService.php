@@ -4,6 +4,7 @@ namespace App\Service\Admin;
 
 use App\Entity\Contact;
 use App\Entity\User;
+use App\Enum\StateContactEnum;
 use App\Helpers\DateTimeHelperTrait;
 use App\Repository\ContactRepository;
 use App\Service\Breadcrumb\Breadcrumb;
@@ -64,11 +65,15 @@ final class ContactService
     /**
      * @return array
      */
-    public function edit(): array
+    public function edit(Contact $contact): array
     {
         $breadcrumb = $this->breadcrumb([new BreadcrumbItem('Modifier un contact')]);
 
-        return compact('breadcrumb',);
+        if ($contact->getState() === StateContactEnum::STATE_NON_LU) {
+            $this->update($contact->setState(StateContactEnum::STATE_LU));
+        }
+
+        return compact('breadcrumb', 'contact',);
     }
 
     /**
@@ -108,20 +113,20 @@ final class ContactService
     public function breadcrumb(array $items = []): Breadcrumb
     {
         return new Breadcrumb([
-            new BreadcrumbItem('Liste des contacts', $this->urlGenerator->generate('admin_project_index')),
+            new BreadcrumbItem('Liste des contacts', $this->urlGenerator->generate('admin_contact_index')),
             ...$items
         ]);
     }
 
     /**
-     * @param Contact $project
+     * @param Contact $contact
      * 
      * @return object
      */
-    public function delete(Contact $project): object
+    public function delete(Contact $contact): object
     {
         try {
-            $this->manager->remove($project);
+            $this->manager->remove($contact);
             $this->manager->flush();
 
             return $this->sendNoContent();
@@ -135,39 +140,39 @@ final class ContactService
     }
 
     /**
-     * @param Contact $project
+     * @param Contact $contact
      * 
      * @return bool
      */
-    public function createAction(Contact $project): bool
+    public function createAction(Contact $contact): bool
     {
-        $project->setCreatedAt($this->now());
+        $contact->setCreatedAt($this->now());
 
-        return $this->save($project);
+        return $this->save($contact);
     }
 
     /**
-     * @param Contact $project
+     * @param Contact $contact
      * 
      * @return bool
      */
-    public function update(Contact $project): bool
+    public function update(Contact $contact): bool
     {
-        $project->setUpdatedAt($this->now());
+        $contact->setUpdatedAt($this->now());
 
-        return $this->save($project);
+        return $this->save($contact);
     }
 
     /**
      * save
      *
-     * @param  Contact $project
+     * @param  Contact $contact
      * @return bool
      */
-    public function save(Contact $project): bool
+    public function save(Contact $contact): bool
     {
         try {
-            $this->manager->persist($project);
+            $this->manager->persist($contact);
             $this->manager->flush();
             return true;
         } catch (ORMException $e) {

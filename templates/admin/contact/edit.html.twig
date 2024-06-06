@@ -3,16 +3,54 @@
 {% block content %}
 
   <h1 class="h4">Modifier un projet</h1>
+  <table class="table table-bordered">
+    <tr>
+      <th scope="row">Nom</th>
+      <td>{{ contact.fullname }}</td>
+    </tr>
+    <tr>
+      <th scope="row">E-mail</th>
+      <td>{{ contact.email }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Téléphone</th>
+      <td>{{ contact.telephone }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Objet</th>
+      <td>{{ contact.subject }}</td>
+    </tr>
+    {% for md in contact.metadata %}
+      <tr>
+        <th scope="row">{{ md.name }}</th>
+        <td>
+          {% if md.name == 'file' or md.name == 'offre_url' %}
+            <a href="{{ md.value }}">{{ md.value }}</a>
+          {% else %}
+            {{ md.value }}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    <tr>
+      <th scope="row">Message</th>
+      <td>{{ contact.message }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Statut</th>
+      <td>{{ contact.state }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Crée le</th>
+      <td>{{ contact.createdAt|date('d-m-Y') }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Dernière modification le le</th>
+      <td>{{ contact.createdAt|date('d-m-Y') }}</td>
+    </tr>
+  </table>
 
-  {% include "admin/project/_form.html.twig" %}
-
-{% endblock %}
-
-{% block css %}
-  <link rel="stylesheet" href="{{ asset('libs/ImagePreviewer/ImagePreviewer.css') }}">  
 {% endblock %}
 
 {% block js %}
-  <script src="{{ asset('libs/ImagePreviewer/ImagePreviewer.js') }}"></script>
-  <script src="{{ asset('js/admin/project.js') }}"></script>
 {% endblock %}

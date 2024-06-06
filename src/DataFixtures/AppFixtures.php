@@ -135,25 +135,25 @@ class AppFixtures extends Fixture
                 ->addMetadata((new ContactMetadata)->setName('firstName')->setValue($firstName))
                 ->addMetadata((new ContactMetadata)->setName('lastName')->setValue($lastName));
 
-            if (SubjectContactEnum::SUBJECT_OFFRE_EMPLOI) {
+            if ($contact->getSubject() === SubjectContactEnum::SUBJECT_OFFRE_EMPLOI) {
                 $contact
                     ->addMetadata((new ContactMetadata)->setName('company')->setValue($faker->company()))
                     ->addMetadata((new ContactMetadata)->setName('offre_url')->setValue($offreDEmploiUrl));
             }
 
-            if (SubjectContactEnum::SUBJECT_BUG_CONSTATE) {
+            if ($contact->getSubject() === SubjectContactEnum::SUBJECT_BUG_CONSTATE) {
                 $contact
                     ->addMetadata((new ContactMetadata)->setName('page')->setValue($faker->company()))
                     ->addMetadata((new ContactMetadata)->setName('file')->setValue($screenShot));
             }
 
-            if (SubjectContactEnum::SUBJECT_SUGGESTION_AMELIORATION) {
+            if ($contact->getSubject() === SubjectContactEnum::SUBJECT_SUGGESTION_AMELIORATION) {
                 $contact
                     ->addMetadata((new ContactMetadata)->setName('page')->setValue($faker->company()))
                     ->addMetadata((new ContactMetadata)->setName('file')->setValue($screenShot));
             }
 
-            if (SubjectContactEnum::SUBJECT_AUTRE) {
+            if ($contact->getSubject() === SubjectContactEnum::SUBJECT_AUTRE) {
                 $contact->addMetadata((new ContactMetadata)->setName('subject')->setValue($faker->word));
             }
 
