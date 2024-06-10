@@ -16,6 +16,7 @@
           <th scope="col">ID</th>
           <th scope="col">Nom</th>
           <th scope="col">Type</th>
+          <th scope="col">Publié</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -25,6 +26,7 @@
             <th scope="row">{{ xp.id }}</th>
             <td>{{ xp.name }}</td>
             <td>{{ xp.type }}</td>
+            <td>{{ xp.published ? 'Oui' : 'Non' }}</td>
             <td>
               <a 
                 href="{{ path('admin_experience_edit', { id : xp.id }) }}" 

@@ -36,6 +36,7 @@ security:
     access_control:
         - { path: ^/auth/forgot-password, roles: PUBLIC_ACCESS }
         - { path: ^/auth/reset-password, roles: PUBLIC_ACCESS }
+        - { path: ^/api/website/data, roles: PUBLIC_ACCESS }
         - { path: ^/logout, roles: PUBLIC_ACCESS }
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
