@@ -6,6 +6,7 @@ use App\Entity\Experience;
 use App\Enum\TypeExperienceEnum;
 use App\Helpers\DateTimeHelperTrait;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -47,6 +48,12 @@ class ExperienceType extends AbstractType
             ->add('place', TextType::class, [
                 'label' => 'Lieu',
                 'required' => false,
+            ])
+            ->add('published', CheckboxType::class, [
+                'required' => false,
+                'label' => 'Publier',
+                'row_attr' => ['class' => 'form-check form-switch'],
+                'label_attr' => ['role' => 'switch',]
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',
