@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\TypeProjectEnum;
 use App\Repository\ProjectRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,23 +22,23 @@ class Project
     #[Assert\NotBlank(message: 'Ce champs est obligatoire !')]
     #[Groups(['website_data'])]
     private ?string $name = null;
-    
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups(['website_data'])]
     private ?string $description = null;
-    
+
     #[ORM\Column(nullable: true)]
     #[Groups(['website_data'])]
     private ?string $image = null;
-    
+
     #[ORM\Column]
     #[Groups(['website_data'])]
     private ?\DateTimeImmutable $createdAt = null;
-    
+
     #[ORM\Column(nullable: true)]
     #[Groups(['website_data'])]
     private ?\DateTimeImmutable $updatedAt = null;
-    
+
     #[ORM\Column(length: 15)]
     #[Assert\NotBlank(message: 'Ce champs est obligatoire !')]
     #[Groups(['website_data'])]
@@ -50,6 +51,8 @@ class Project
     #[ORM\Column(nullable: true)]
     #[Groups(['website_data'])]
     private ?bool $isPublished = null;
+
+    private ?string $niceType = null;
 
     public function __construct()
     {
@@ -126,6 +129,13 @@ class Project
         $this->image = $image;
 
         return $this;
+    }
+
+    public function getNiceType(): ?string
+    {
+        $this->niceType = $this->type === null ? null : TypeProjectEnum::match($this->type);
+
+        return $this->niceType;
     }
 
     public function getType(): ?string
