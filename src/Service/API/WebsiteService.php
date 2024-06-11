@@ -3,6 +3,7 @@
 namespace App\Service\API;
 
 use App\Repository\ExperienceRepository;
+use App\Repository\ProjectRepository;
 use App\Utils\ServiceTrait;
 
 final class WebsiteService
@@ -11,6 +12,7 @@ final class WebsiteService
 
     public function __construct(
         private ExperienceRepository $experienceRepository,
+        private ProjectRepository $projectRepository
     ) {
     }
 
@@ -18,6 +20,7 @@ final class WebsiteService
     {
         return $this->sendJson([
             'experiences' => $this->experienceRepository->findBy(['published' => true]),
+            'projects' => $this->projectRepository->findLatest(),
         ]);
     }
 }
