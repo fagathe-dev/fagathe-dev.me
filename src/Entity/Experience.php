@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\TypeExperienceEnum;
 use App\Repository\ExperienceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -45,6 +46,9 @@ class Experience
     #[ORM\Column(nullable: true)]
     #[Groups(['website_data'])]
     private ?bool $published = null;
+    
+    #[Groups(['website_data'])]
+    private ?string $niceType = null;
 
     public function getId(): ?int
     {
@@ -73,6 +77,13 @@ class Experience
         $this->type = $type;
 
         return $this;
+    }
+    
+    public function getNiceType(): ?string
+    {
+        $this->niceType = $this->type === null ? null : TypeExperienceEnum::match($this->type);
+
+        return $this->niceType;
     }
 
     public function getStartYear(): ?string
