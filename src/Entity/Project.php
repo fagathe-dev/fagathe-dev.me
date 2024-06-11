@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProjectRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
@@ -13,32 +14,41 @@ class Project
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['website_data'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank(message: 'Ce champs est obligatoire !')]
+    #[Groups(['website_data'])]
     private ?string $name = null;
     
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['website_data'])]
     private ?string $description = null;
     
     #[ORM\Column(nullable: true)]
+    #[Groups(['website_data'])]
     private ?string $image = null;
     
     #[ORM\Column]
+    #[Groups(['website_data'])]
     private ?\DateTimeImmutable $createdAt = null;
     
     #[ORM\Column(nullable: true)]
+    #[Groups(['website_data'])]
     private ?\DateTimeImmutable $updatedAt = null;
     
     #[ORM\Column(length: 15)]
     #[Assert\NotBlank(message: 'Ce champs est obligatoire !')]
+    #[Groups(['website_data'])]
     private ?string $type = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['website_data'])]
     private ?array $tasks = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['website_data'])]
     private ?bool $isPublished = null;
 
     public function __construct()
