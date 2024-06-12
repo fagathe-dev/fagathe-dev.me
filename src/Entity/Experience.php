@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
+use App\Enum\TypeExperienceEnum;
 use App\Repository\ExperienceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ExperienceRepository::class)]
@@ -12,27 +14,41 @@ class Experience
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['website_data'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 120)]
     #[Assert\NotBlank(message: 'Le nom est obligatoire !', allowNull: true)]
+    #[Groups(['website_data'])]
     private ?string $name = null;
-    
+
     #[ORM\Column(length: 20)]
+    #[Groups(['website_data'])]
     private ?string $type = null;
-    
+
     #[ORM\Column(length: 4)]
+    #[Groups(['website_data'])]
     private ?string $start_year = null;
 
     #[ORM\Column(length: 4, nullable: true)]
+    #[Groups(['website_data'])]
     private ?string $end_year = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['website_data'])]
     private ?array $tasks = [];
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Groups(['website_data'])]
     #[Assert\NotBlank(message: 'Le lieu est obligatoire !', allowNull: true)]
     private ?string $place = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Groups(['website_data'])]
+    private ?bool $published = null;
+    
+    #[Groups(['website_data'])]
+    private ?string $niceType = null;
 
     public function getId(): ?int
     {
@@ -61,6 +77,13 @@ class Experience
         $this->type = $type;
 
         return $this;
+    }
+    
+    public function getNiceType(): ?string
+    {
+        $this->niceType = $this->type === null ? null : TypeExperienceEnum::match($this->type);
+
+        return $this->niceType;
     }
 
     public function getStartYear(): ?string
@@ -114,6 +137,18 @@ class Experience
     public function setPlace(?string $place): static
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    public function isPublished(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(?bool $published): static
+    {
+        $this->published = $published;
 
         return $this;
     }
