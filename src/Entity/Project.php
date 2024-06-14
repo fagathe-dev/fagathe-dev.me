@@ -27,10 +27,6 @@ class Project
     #[Groups(['website_data'])]
     private ?string $description = null;
 
-    #[ORM\Column(nullable: true)]
-    #[Groups(['website_data'])]
-    private ?string $image = null;
-
     #[ORM\Column]
     #[Groups(['website_data'])]
     private ?\DateTimeImmutable $createdAt = null;
@@ -53,6 +49,15 @@ class Project
     private ?bool $isPublished = null;
 
     private ?string $niceType = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $url = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $published = null;
 
     public function __construct()
     {
@@ -168,14 +173,33 @@ class Project
         return $this;
     }
 
-    public function isPublished(): ?bool
-    {
-        return $this->isPublished;
-    }
-
     public function setIsPublished(?bool $isPublished): static
     {
         $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): static
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    public function isPublished(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(?bool $published): static
+    {
+        $this->published = $published;
 
         return $this;
     }
