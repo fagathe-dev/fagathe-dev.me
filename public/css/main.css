@@ -1,3 +1,25 @@
 [data-href]:hover {
   cursor: pointer;
 }
+
+.nft-hero {
+  height: 100vh;
+  background-image: url(/images/bg-home.jpg);
+}
+
+.navbar .navbar-toggler {
+  border: none;
+}
+.navbar .navbar-toggler .mdi-menu {
+  font-size: 2rem;
+}
+
+.navbar-light .navbar-nav .nav-item .nav-link {
+  color: rgba(var(--vz-white-rgb), 0.75);
+}
+
+@media (max-width: 991.98px) {
+  .navbar-landing .navbar-nav .nav-item .nav-link {
+    color: inherit;
+  }
+}
