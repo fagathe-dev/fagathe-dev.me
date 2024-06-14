@@ -9,6 +9,7 @@ twig:
     globals:
         APP_VERSION: '%env(APP_VERSION)%'
         APP_NAME: '%env(APP_NAME)%'
+        APP_SEO_TITLE: '%env(APP_SEO_TITLE)%'
         APP_GITHUB_URL: '%env(APP_GITHUB_URL)%'
         APP_LINKEDIN_URL: '%env(APP_LINKEDIN_URL)%'
 
