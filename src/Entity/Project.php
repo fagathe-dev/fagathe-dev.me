@@ -27,10 +27,6 @@ class Project
     #[Groups(['website_data'])]
     private ?string $description = null;
 
-    #[ORM\Column(nullable: true)]
-    #[Groups(['website_data'])]
-    private ?string $image = null;
-
     #[ORM\Column]
     #[Groups(['website_data'])]
     private ?\DateTimeImmutable $createdAt = null;
@@ -177,11 +173,6 @@ class Project
         return $this;
     }
 
-    public function isPublished(): ?bool
-    {
-        return $this->isPublished;
-    }
-
     public function setIsPublished(?bool $isPublished): static
     {
         $this->isPublished = $isPublished;
@@ -197,18 +188,6 @@ class Project
     public function setUrl(?string $url): static
     {
         $this->url = $url;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): static
-    {
-        $this->image = $image;
 
         return $this;
     }
