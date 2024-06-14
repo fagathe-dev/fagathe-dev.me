@@ -26,3 +26,11 @@ if (dataHref instanceof Element) {
     );
   });
 }
+
+window.onbeforeunload = (e) => {
+  console.log({ type: e.type });
+  confirmMessage = "Vos modifications seront perdues si vous continuer !";
+  e.returnValue = confirmMessage;
+
+  return confirmMessage;
+};
