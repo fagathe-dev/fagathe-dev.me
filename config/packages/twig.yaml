@@ -12,6 +12,8 @@ twig:
         APP_SEO_TITLE: '%env(APP_SEO_TITLE)%'
         APP_GITHUB_URL: '%env(APP_GITHUB_URL)%'
         APP_LINKEDIN_URL: '%env(APP_LINKEDIN_URL)%'
+        APP_PHONE_NUMBER: '%env(APP_PHONE_NUMBER)%'
+        APP_EMAIL_CONTACT: '%env(APP_EMAIL_CONTACT)%'
 
 when@test:
     twig:

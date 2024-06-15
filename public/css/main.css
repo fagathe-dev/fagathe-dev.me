@@ -23,3 +23,19 @@
     color: inherit;
   }
 }
+
+#contact .card .card-text i {
+  font-size: 2rem;
+}
+
+#contact .card .card-footer {
+  font-size: 1rem;
+  padding-inline: 0.9rem;
+}
+
+@media (max-width: 1200px) {
+  #contact .card .card-footer {
+    font-size: 12px;
+    padding-inline: 0.9rem;
+  }
+}
