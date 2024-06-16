@@ -21,8 +21,8 @@
                                     <div class="col-6">
                                         <div class="skill">
                                             <img src="{{ asset(skill.logo) }}" srcset="{{ asset(skill.logo) }}" title="Logo de {{ skill.name }}" alt="Logo de {{ skill.name }}" width="50" height="32">
-                                            <small class="text-primary">{{ skill.name }}</small>
-                                            <small class="text-muted">{{ skill.niceLevel }}</small>
+                                            <p class="text-black skill-name">{{ skill.name }}</p>
+                                            <small class="text-muted skill-level">{{ skill.niceLevel }}</small>
                                         </div>
                                     </div>
                                 {% endfor %}
