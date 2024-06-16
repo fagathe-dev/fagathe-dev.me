@@ -39,3 +39,11 @@
     padding-inline: 0.9rem;
   }
 }
+
+.skill {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  margin-block-end: .5rem;
+}
