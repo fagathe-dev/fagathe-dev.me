@@ -1,0 +1,58 @@
+<!-- start marketplace -->
+<section class="section" id="parcours">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="text-center mb-5">
+          <h2 class="mb-3 h3 fw-semibold lh-base">Mon parcours</h2>
+          <p class="text-muted">Mes expériences</p>
+          <ul class="nav nav-pills filter-btns justify-content-center" role="tablist">
+              <li class="nav-item" role="presentation">
+                  <button class="nav-link fw-medium active" type="button" data-filter="all">Tous</button>
+              </li>
+              {% for type in experiences.keys %}
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link fw-medium" type="button" data-filter="{{ type|lower }}">{{ type|capitalize }}</button>
+                </li>
+              {% endfor %}
+          </ul>
+        </div>
+      </div><!-- end col -->
+    </div><!-- end row -->
+    <div class="row">
+      {% for xp in experiences.data %}
+        <div class="col-lg-3 product-item {{ xp.niceType|lower }}">
+          <div class="card rounded-1 card-animate">
+            <div class="card-body">
+              <p class="text-primary mb-0">{{ xp.name|length > 21 ? (xp.name|slice(0, 22) ~ '...') : xp.name }}</p>
+              <p class="text-black mb-0">{{ xp.place }}</p>
+              <p class="text-muted mb-0">{{ xp.startYear }} - {{ xp.endYear ?? 'aujourd\'hui' }}</p>
+              <a 
+                href="{{ url('api_website_get_single_xp', { id: xp.id }) }}" 
+                onclick="displayModal(event);"
+                data-bs-toggle="modal" 
+                data-bs-target="#xpSeeMoreModal"
+              >
+                Voir plus <i class="ri-arrow-right-s-line align-middle lh-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div><!-- end container -->
+</section>
+<!-- end marketplace -->
+
+<div class="modal fade" id="xpSeeMoreModal" tabindex="-1" role="dialog" aria-labelledby="xpSeeMoreModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center p-5">
+        <h5 class="modal-title" id="xpName"></h5>
+        <p class="text-muted mb-0" id="xpPlace"></p>
+        <p class="text-muted mb-0" id="xpDuration"></p>
+        <div class="list-group list-group-flush" id="xpTasks"></div>
+      </div>
+    </div>
+  </div>
+</div>
