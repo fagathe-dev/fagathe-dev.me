@@ -2,6 +2,7 @@
 
 namespace App\Controller\API;
 
+use App\Entity\Experience;
 use App\Service\API\WebsiteService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,6 +16,15 @@ final class WebSiteController extends AbstractController
         private WebsiteService $service
     )
     {
+    }
+
+    #[Route('/xp/{id}', name: 'get_single_xp', methods: ['GET'])]
+    public function getSingleXp(Experience $experience): JsonResponse
+    {
+        return $this->json(
+            $experience,
+            context: ['groups' => ['read_xp']]
+        );
     }
 
     #[Route('/data', name: 'getData', methods: ['GET'])]

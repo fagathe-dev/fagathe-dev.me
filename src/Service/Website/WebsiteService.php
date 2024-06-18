@@ -2,6 +2,8 @@
 
 namespace App\Service\Website;
 
+use App\Entity\Experience;
+use App\Entity\Project;
 use App\Entity\Skill;
 use App\Repository\ExperienceRepository;
 use App\Repository\ProjectRepository;
@@ -17,6 +19,22 @@ final class WebsiteService
         private ProjectRepository $projectRepository,
         private SkillRepository $skillRepository,
     ) {
+    }
+
+    /**
+     * @param Experience[]|Project[] $rawData
+     * 
+     * @return array
+     */
+    private function filterDataByType(array $data = []): array
+    {
+        $keys = [];
+        foreach ($data as $d) {
+            if (!in_array($d->getNiceType(), $keys)) {
+                $keys = [...$keys, $d->getNiceType()];
+            }
+        }
+        return compact('data', 'keys');
     }
 
     /**
@@ -44,8 +62,8 @@ final class WebsiteService
     public function getData(): array
     {
         return [
-            'experiences' => $this->experienceRepository->findBy(['published' => true]),
-            'projects' => $this->projectRepository->findLatest(),
+            'experiences' => $this->filterDataByType($this->experienceRepository->findBy(['published' => true])),
+            'projects' => $this->filterDataByType($this->projectRepository->findLatest()),
             'skills' => $this->filterSkillByType($this->skillRepository->findAll()),
         ];
     }

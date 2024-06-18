@@ -14,40 +14,40 @@ class Experience
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_xp'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 120)]
     #[Assert\NotBlank(message: 'Le nom est obligatoire !', allowNull: true)]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_xp'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 20)]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_xp'])]
     private ?string $type = null;
 
     #[ORM\Column(length: 4)]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_xp'])]
     private ?string $start_year = null;
 
     #[ORM\Column(length: 4, nullable: true)]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_xp'])]
     private ?string $end_year = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_xp'])]
     private ?array $tasks = [];
 
     #[ORM\Column(length: 50, nullable: true)]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_xp'])]
     #[Assert\NotBlank(message: 'Le lieu est obligatoire !', allowNull: true)]
     private ?string $place = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_xp'])]
     private ?bool $published = null;
     
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_xp'])]
     private ?string $niceType = null;
 
     public function getId(): ?int
