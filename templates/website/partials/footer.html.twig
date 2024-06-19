@@ -1,0 +1,73 @@
+<!-- Start footer -->
+<footer class="custom-footer bg-dark py-5 position-relative">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 mt-4">
+        <div>
+          <div>
+            <img src="{{ asset('images/logo.png') }}" alt="logo light" height="32">
+          </div>
+          <div class="mt-4">
+            <p>{{ APP_NAME }}</p>
+            <p> Découvrez <span data-href="{{ url('website_home_index') }}#portfolio">mes réalisations</span> et contactez-moi pour donner vie à vos ambitions sur le web.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7 ms-lg-auto">
+        <div class="row">
+          <div class="col-sm-4 mt-4">
+            <h5 class="text-white mb-0">Plan du site</h5>
+            <div class="text-muted mt-3">
+              <ul class="list-unstyled ff-secondary footer-list">
+                <li><a href="{{ url('website_home_index') }}">Accueil</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-4 mt-4">
+            <h5 class="text-white mb-0">Mentions légales</h5>
+            <div class="text-muted mt-3">
+              <ul class="list-unstyled ff-secondary footer-list">
+                <li><a href="#">Mentions légales</a></li>
+                <li><a href="#">Politique des données</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row text-center text-sm-start align-items-center mt-5">
+      <div class="col-sm-6">
+        <div>
+          <p class="copy-rights mb-0">
+            {{ 'now'|date('Y') }} © fagathe-dev.me
+          </p>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="text-sm-end mt-3 mt-sm-0">
+          <ul class="list-inline mb-0 footer-social-link">
+            <li class="list-inline-item">
+              <a href="{{ APP_GITHUB_URL }}" target="_blank" class="avatar-xs d-block">
+                <div class="avatar-title rounded-circle">
+                  <i class="ri-github-fill"></i>
+                </div>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{{ APP_LINKEDIN_URL }}" target="_blank" class="avatar-xs d-block">
+                <div class="avatar-title rounded-circle">
+                  <i class="ri-linkedin-fill"></i>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- end footer -->

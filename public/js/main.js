@@ -1,7 +1,7 @@
 /**
  *
  * @param {string} selector
- * @returns {undefined|Element|NodeCollection[]}
+ * @returns {NodeList|Element|undefined}
  */
 const $ = (selector) => {
   const elements = Array.from(document.querySelectorAll(selector));
@@ -9,11 +9,16 @@ const $ = (selector) => {
     return undefined;
   }
   return elements.length === 1 ? elements[0] : elements;
-}
+};
 
 const dataHref = $("[data-href]");
 
-if (dataHref) {
+if (dataHref instanceof Element) {
+  dataHref.addEventListener(
+    "click",
+    (event) => (window.location = event.target.dataset.href)
+  );
+} else if (dataHref instanceof NodeList) {
   dataHref.forEach((a) => {
     a.addEventListener(
       "click",

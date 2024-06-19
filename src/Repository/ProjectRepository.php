@@ -27,7 +27,7 @@ class ProjectRepository extends ServiceEntityRepository
     public function findLatest(): array
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.isPublished = :val')
+            ->andWhere('p.published = :val')
             ->setParameter('val', true)
             ->orderBy('p.createdAt', 'DESC')
             ->getQuery()

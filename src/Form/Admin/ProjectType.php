@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -72,11 +73,13 @@ class ProjectType extends AbstractType
                 'entry_options' => ['label' => false],
                 'by_reference' => false,
             ])
-            ->add('isPublished', CheckboxType::class, [
+            ->add('published', CheckboxType::class, [
                 'required' => false,
                 'label' => 'Publier',
-                'row_attr' => ['class' => 'form-check form-switch'],
-                'label_attr' => ['role' => 'switch',]
+            ])
+            ->add('url', UrlType::class, [
+                'required' => false,
+                'label' => 'URL du projet',
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',

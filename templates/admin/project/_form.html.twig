@@ -5,6 +5,7 @@
 
       {{ form_row(form.description, {attr: {rows: 5}}) }}
 
+      {{ form_row(form.url) }}
       <!-- store the prototype on the data-prototype attribute -->
       <div class="group-task-list">
         <label for="#" class="form-label">
@@ -35,7 +36,7 @@
         <div class="panel-header">Informations</div>
         <div class="panel-body">
           {{ form_row(form.type) }}
-          {{ form_row(form.isPublished) }}
+          {{ form_row(form.published) }}
         </div>
       </div>
       <div class="panel mb-3">
