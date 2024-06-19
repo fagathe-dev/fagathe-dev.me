@@ -200,7 +200,7 @@ class Uploader
      */
     public function getUploadedFilePath(): string
     {
-        return DIRECTORY_SEPARATOR .  DEFAULT_UPLOAD_DIR . $this->getOption('uploadDir') . DIRECTORY_SEPARATOR . $this->getFilename();
+        return '/' .  DEFAULT_UPLOAD_DIR . $this->getOption('uploadDir') . '/' . $this->getFilename();
     }
 
     /**

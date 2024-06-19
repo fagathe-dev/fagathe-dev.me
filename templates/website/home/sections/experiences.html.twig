@@ -17,8 +17,8 @@
               {% endfor %}
           </ul>
         </div>
-      </div><!-- end col -->
-    </div><!-- end row -->
+      </div>
+    </div>
     <div class="row">
       {% for xp in experiences.data %}
         <div class="col-lg-3 product-item {{ xp.niceType|lower }}">
@@ -29,7 +29,7 @@
               <p class="text-muted mb-0">{{ xp.startYear }} - {{ xp.endYear ?? 'aujourd\'hui' }}</p>
               <a 
                 href="{{ url('api_website_get_single_xp', { id: xp.id }) }}" 
-                onclick="displayModal(event);"
+                onclick="displayXpModal(event);"
                 data-bs-toggle="modal" 
                 data-bs-target="#xpSeeMoreModal"
               >
@@ -40,19 +40,21 @@
         </div>
       {% endfor %}
     </div>
-  </div><!-- end container -->
-</section>
-<!-- end marketplace -->
-
-<div class="modal fade" id="xpSeeMoreModal" tabindex="-1" role="dialog" aria-labelledby="xpSeeMoreModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-body text-center p-5">
-        <h5 class="modal-title" id="xpName"></h5>
-        <p class="text-muted mb-0" id="xpPlace"></p>
-        <p class="text-muted mb-0" id="xpDuration"></p>
-        <div class="list-group list-group-flush" id="xpTasks"></div>
+  </div>
+  <!-- start xp modal -->
+  <div class="modal fade" id="xpSeeMoreModal" tabindex="-1" role="dialog" aria-labelledby="xpSeeMoreModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-body text-center py-5 px-3">
+          <h5 class="modal-title" id="xpName"></h5>
+          <p class="text-muted mb-0" id="xpPlace"></p>
+          <p class="text-muted mb-0" id="xpDuration"></p>
+          <div class="list-group list-group-flush" id="xpTasks"></div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <!-- end xp modal -->
+</section>
+<!-- end marketplace -->
