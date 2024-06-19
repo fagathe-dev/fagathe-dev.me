@@ -15,48 +15,48 @@ class Project
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_project'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank(message: 'Ce champs est obligatoire !')]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_project'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_project'])]
     private ?string $description = null;
 
     #[ORM\Column]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_project'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_project'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(length: 15)]
     #[Assert\NotBlank(message: 'Ce champs est obligatoire !')]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_project'])]
     private ?string $type = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['website_data'])]
+    #[Groups(['website_data', 'read_project'])]
     private ?array $tasks = null;
-
-    #[ORM\Column(nullable: true)]
-    #[Groups(['website_data'])]
-    private ?bool $isPublished = null;
-
+    
+    #[Groups(['website_data', 'read_project'])]
     private ?string $niceType = null;
-
+    
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['website_data', 'read_project'])]
     private ?string $url = null;
-
+    
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['website_data', 'read_project'])]
     private ?string $image = null;
-
+    
     #[ORM\Column(nullable: true)]
+    #[Groups(['website_data', 'read_project'])]
     private ?bool $published = null;
 
     public function __construct()
@@ -169,13 +169,6 @@ class Project
     public function setTasks(?array $tasks): static
     {
         $this->tasks = $tasks;
-
-        return $this;
-    }
-
-    public function setIsPublished(?bool $isPublished): static
-    {
-        $this->isPublished = $isPublished;
 
         return $this;
     }
