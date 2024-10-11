@@ -1,5 +1,5 @@
 # fagathe-dev.me
-AGATHE Frédérick, mon site portfolio développeur fullstack PHP/JS
+AGATHE Frédérick, my portfolio website as a fullstack developer (PHP/JS)
 
 ## Stack 
 - Symfony > 7
@@ -10,7 +10,6 @@ AGATHE Frédérick, mon site portfolio développeur fullstack PHP/JS
 ## Pages 
 - Home page  
 - Contact page  
-- Mentions légales
 - Data policy
 
 ## Features
