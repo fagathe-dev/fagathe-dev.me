@@ -16,4 +16,4 @@ AGATHE Frédérick, my portfolio website as a fullstack developer (PHP/JS)
 - Mailer integration
 - Use Json file as database
 - Contact form with recap
-- Contact redirection
+- Contact redirection (phone, mail, whatsapp, ...)
