@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "type": "Emploi",
+    "name": "Analyste développeur junior en alternance",
+    "place": "CGI",
+    "start_year": 2017,
+    "end_year": 2019,
+    "tasks": [
+      "Refonte de pages web avec Wordpress",
+      "TMA sur une application Web Laravel",
+      "Rédaction de documentation fonctionnelle"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Ingénieur informatique",
+    "type": "Emploi",
+    "place": "Softia",
+    "start_year": 2021,
+    "end_year": 2022,
+    "tasks": [
+      "Refonte technique d\"application",
+      "TMA sur une application Web Laravel et Symfony",
+      "Rédaction de documentation technico-fonctionnel",
+      "Gestion de base de données MySQL et PostgreSQL"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Développeur PHP",
+    "type": "Emploi",
+    "place": "Meilleurtaux",
+    "start_year": 2022,
+    "end_year": null,
+    "tasks": [
+      "Développement d\"application avec Joomla",
+      "Refonte de formulaire et calculatrice en PHP",
+      "Développement d\"un back-office en React",
+      "Développement d\"une interface en ligne de commande avec Nodejs"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "BTS CGO (Comptabilité Gestion des Organisations)",
+    "type": "Formation",
+    "place": "Lycée Roger Verlomme",
+    "start_year": 2014,
+    "end_year": 2016,
+    "tasks": ["Bases du SQL"]
+  },
+  {
+    "id": 5,
+    "name": "BTS TSTR (Technicien Système, Réseaux et Sécurité )",
+    "type": "Formation",
+    "place": "IPI Paris",
+    "start_year": 2017,
+    "end_year": 2019,
+    "tasks": [
+      "Bases de la programmation",
+      "Java",
+      "HTML / CSS",
+      "Javascript",
+      "PHP",
+      "SQL"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Développeur PHP/Symfony (Bac +3/4)",
+    "type": "Formation",
+    "place": "OpenClassRooms",
+    "start_year": 2020,
+    "end_year": 2021,
+    "tasks": [
+      "PHP",
+      "Javascript niveau intermédiaire",
+      "Gestion de base de données",
+      "Rédaction de documentation",
+      "Wordpress",
+      "Symfony niveau intermédiaire"
+    ]
+  }
+]

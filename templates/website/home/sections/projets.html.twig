@@ -1,0 +1,68 @@
+<!-- start portfolio -->
+<section class="section" id="portfolio">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="text-center mb-5">
+          <h2 class="mb-3 h3 fw-semibold lh-base">Mon portfolio</h2>
+          <p class="text-muted">Mes projets</p>
+          <ul class="nav nav-pills filter-btns justify-content-center" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link fw-medium active" type="button" data-filter="all">Tous</button>
+            </li>
+            {% for type in projects.keys %}
+              <li class="nav-item" role="presentation">
+                <button class="nav-link fw-medium" type="button" data-filter="{{ type|lower }}">{{ type|capitalize }}</button>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      {% for key, p in projects.data %}
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="card card-animate">
+            <div class="card-body">
+              <img src="{{ asset(p.image ?? '#') }}" srcset="{{ asset(p.image ?? '#') }}" title="Image du projet {{ p.name }}" alt="Image du projet {{ p.name }}" class="card-img-top img-fluid rounded">
+            </div>
+            <div class="card-footer">
+              <h6 class="text-black">{{ p.name }}</h6>
+              {# <a 
+                href="{{ url('website_api_get_single_project', { id: p.id }) }}" 
+                onclick="displayProjectModal(event);"
+                class="card-subtitle text-primary"
+                data-bs-toggle="modal" 
+                data-bs-target="#projectSeeMoreModal"
+              >
+                Voir plus <i class="ri-arrow-right-s-line align-middle lh-1"></i>
+              </a> #}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="modal fade" id="projectSeeMoreModal" tabindex="-1" role="dialog" aria-labelledby="projectSeeMoreModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-body text-center py-5 px-3">
+          <div class="row">
+            <div class="col-lg-6">
+              <img src="" srcset="" alt="" title="" class="img-fluid rounded" id="projectImage">
+            </div>
+            <div class="col-lg-6 mt-md-3">
+              <h5 class="modal-title" id="projectName"></h5>
+              <p class="text-muted mb-0" id="projectDescription"></p>
+              <div class="list-group list-group-flush" id="projectTasks"></div>
+              <a href="" target="_blank" id="projectUrl" class="d-none">Consulter le projet en ligne <i class="ri-arrow-right-s-line align-middle lh-1"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end portfolio -->

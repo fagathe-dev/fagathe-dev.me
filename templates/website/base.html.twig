@@ -1,0 +1,47 @@
+{% include 'website/partials/main.html.twig' %}
+
+<head>
+
+  {% include 'website/partials/title-meta.html.twig' %}
+
+  <!--Swiper slider css-->
+  <link href="assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+  {% include 'website/partials/head-css.html.twig' %}
+
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" />
+  {% block css %}{% endblock %}
+
+</head>
+
+<body>
+
+  <!-- Begin page -->
+  <div class="layout-wrapper landing">
+    {% include "website/components/navbar.html.twig" %}
+    <div class="bg-overlay bg-overlay-pattern"></div>
+    {% include "components/flashes.html.twig" %}
+    
+    {% block content %}{% endblock %}
+
+    <!--start back-to-top-->
+    <button onclick="topFunction()" class="btn btn-danger btn-icon landing-back-top" id="back-to-top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
+    <!--end back-to-top-->
+
+    {% include "website/components/footer.html.twig" %}
+
+  </div>
+  <!-- end layout wrapper -->
+
+  <script src="{{ asset('js/main.js') }}"></script>
+  {% include 'website/partials/vendor-scripts.html.twig' %}
+
+  <!--Swiper slider js-->
+  <script src="assets/libs/swiper/swiper-bundle.min.js"></script>
+
+  <script src="assets/js/pages/nft-landing.init.js"></script>
+  {% block js %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+.form-group {
+  display: block;
+  margin-block: 0 1.12vh;
+}
+[data-href]:hover {
+  cursor: pointer;
+}
+
+.nft-hero {
+  height: 100vh;
+  background-image: url(/images/bg-home.jpg);
+}
+
+.navbar .navbar-toggler {
+  border: none;
+}
+.navbar .navbar-toggler .mdi-menu {
+  font-size: 2rem;
+}
+
+.navbar-light .navbar-nav .nav-item .nav-link {
+  color: rgba(var(--vz-white-rgb), 0.75);
+}
+
+@media (max-width: 991.98px) {
+  .navbar-landing .navbar-nav .nav-item .nav-link {
+    color: inherit;
+  }
+}
+
+#contact .card .card-text i {
+  font-size: 2rem;
+}
+
+#contact .card .card-footer {
+  font-size: 1rem;
+  padding-inline: 0.9rem;
+}
+
+#contact .card .card-body {
+  position: relative;
+}
+
+#contact .card .card-body .contact-link {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+@media (max-width: 1200px) {
+  #contact .card .card-footer {
+    font-size: 12px;
+    padding-inline: 0.85rem;
+  }
+}
+
+.skill {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  margin-block-end: 0.5rem;
+}
+
+.skill .skill-name {
+  font-weight: 600;
+  margin-block-start: 0.3rem;
+  margin-block-end: 0;
+}
+
+.skill .skill-level {
+  font-weight: 500;
+}
+
+#portfolio .btn-close,
+#parcours .btn-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 99999;
+}

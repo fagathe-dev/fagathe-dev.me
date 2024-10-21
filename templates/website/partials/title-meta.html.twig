@@ -1,0 +1,24 @@
+<meta charset="utf-8" />
+{% if seo is defined %} 
+  <title>{{ seo.title }}</title>
+  {% for tag in seo.tags %}
+    <meta {{ tag.attribute }}="{{ tag.name }}" content="{{ tag.content }}">
+  {% endfor %}
+{% else %}  
+  <title>{{ title is defined ? title ~ ' |' : '' }} {{ APP_SEO_TITLE }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endif %}
+<!-- App favicon -->
+<link rel="shortcut icon" href="{{ asset('images/logo.png') }}">
+
+{% if app.environment == 'prod' %}
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ APP_GOOGLE_TAGMANAGER }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '{{ APP_GOOGLE_TAGMANAGER }}');
+  </script>
+{% endif %}

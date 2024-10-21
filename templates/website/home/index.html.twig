@@ -1,0 +1,70 @@
+{% include 'website/partials/main.html.twig' %}
+
+<head>
+
+  {% include 'website/partials/title-meta.html.twig' %}
+
+  <!--Swiper slider css-->
+  <link href="assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+  {% include 'website/partials/head-css.html.twig' %}
+
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" />
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar-homepage">
+
+  <!-- Begin page -->
+  <div class="layout-wrapper landing">
+    {% include "website/home/navbar.html.twig" %}
+    <div class="bg-overlay bg-overlay-pattern"></div>
+    <!-- end navbar -->
+
+    <!-- start hero section -->
+    {% include "website/home/sections/hero.html.twig" %}
+    <!-- end hero section -->
+
+    {% include "components/flashes.html.twig" %}
+    
+    <!-- start wallet -->
+    {% include "website/home/sections/a-propos.html.twig" %}
+    <!-- end wallet -->
+
+    <!-- start à propos -->
+    {% include "website/home/sections/competences.html.twig" %}
+    <!-- end à propos -->
+
+    <!-- start expériences -->
+    {% include "website/home/sections/experiences.html.twig" %}
+    <!-- end expériences -->
+
+    <!-- start projets -->
+    {% include "website/home/sections/projets.html.twig" %}
+    <!-- end projets -->
+
+    <!-- start contact -->
+    {% include "website/home/sections/contact.html.twig" %}
+    <!-- end contact -->
+
+    <!--start back-to-top-->
+    <button onclick="topFunction()" class="btn btn-danger btn-icon landing-back-top" id="back-to-top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
+    <!--end back-to-top-->
+
+    {% include "website/components/footer.html.twig" %}
+
+  </div>
+  <!-- end layout wrapper -->
+
+  <script src="{{ asset('js/main.js') }}"></script>
+  {% include 'website/partials/vendor-scripts.html.twig' %}
+
+  <!--Swiper slider js-->
+  <script src="assets/libs/swiper/swiper-bundle.min.js"></script>
+
+  <script src="assets/js/pages/nft-landing.init.js"></script>
+  <script src="{{ asset('js/website/home.js') }}"></script>
+</body>
+
+</html>

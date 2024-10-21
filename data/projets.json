@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Mon site",
+    "description": "Ce site est mon portfolio de <strong>développeur WEB</strong> pour en savoir plus sur ce que je fait et me contacter via différents canaux. C'est la deuxième version du site qui est pour la partie purement technique, développé en PHP, Js et Css.",
+    "tasks": [
+      "Gestion des données",
+      "Gestion du SEO",
+      "Gestion du front-office"
+    ],
+    "image": "images/projets/mon-site.png",
+    "type": "Front",
+    "url": "https://fagathe-dev.me",
+    "published": true
+  }
+]

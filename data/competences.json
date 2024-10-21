@@ -1,0 +1,92 @@
+[
+  {
+    "name": "PHP",
+    "type": "Back",
+    "level": "Avancé",
+    "logo": "images/icons/php.svg"
+  },
+  {
+    "name": "Python",
+    "type": "Back",
+    "level": "Les bases",
+    "logo": "images/icons/python.svg"
+  },
+  {
+    "name": "SQL",
+    "type": "Back",
+    "level": "Intermédiaire",
+    "logo": "images/icons/sql.svg"
+  },
+  {
+    "name": "TypeScript",
+    "type": "Back",
+    "level": "Intermédiaire",
+    "logo": "images/icons/typescript.svg"
+  },
+  {
+    "name": "Symfony",
+    "type": "Back",
+    "level": "Avancé",
+    "logo": "images/icons/symfony.svg"
+  },
+  {
+    "name": "Sass",
+    "type": "Front",
+    "level": "Intermédiaire",
+    "logo": "images/icons/sass.svg"
+  },
+  {
+    "name": "React",
+    "type": "Front",
+    "level": "Intermédiaire",
+    "logo": "images/icons/react.svg"
+  },
+  {
+    "name": "HTML",
+    "type": "Front",
+    "level": "Avancé",
+    "logo": "images/icons/html.svg"
+  },
+  {
+    "name": "CSS",
+    "type": "Front",
+    "level": "Avancé",
+    "logo": "images/icons/css.svg"
+  },
+  {
+    "name": "Wordpress",
+    "type": "Front",
+    "level": "Intermédiaire",
+    "logo": "images/icons/wordpress.svg"
+  },
+  {
+    "name": "Terminal",
+    "type": "Outils",
+    "level": null,
+    "logo": "images/icons/terminal.svg"
+  },
+  {
+    "name": "Docker",
+    "type": "Outils",
+    "level": null,
+    "logo": "images/icons/docker.svg"
+  },
+  {
+    "name": "Postman",
+    "type": "Outils",
+    "level": null,
+    "logo": "images/icons/postman.svg"
+  },
+  {
+    "name": "Xampp",
+    "type": "Outils",
+    "level": null,
+    "logo": "images/icons/xampp.svg"
+  },
+  {
+    "name": "Visual Studio Code",
+    "type": "Outils",
+    "level": null,
+    "logo": "images/icons/vscode.svg"
+  }
+]

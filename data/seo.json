@@ -1,0 +1,85 @@
+[
+  {
+    "homePage": {
+      "title": "Mon porfolio développeur Web, Frédérick AGATHE",
+      "name": "Page d'accueil",
+      "url": "/",
+      "tags": [
+        {
+          "name": "description",
+          "attribute": "name",
+          "content": "CV développeur Web : création et développement de sites et d'applications Web. HTML5, CSS3, JQuery, Javascript, Bootstrap, PHP, Symfony, ..."
+        },
+        {
+          "name": "keywords",
+          "attribute": "name",
+          "content": "Frédérick AGATHE, développeur, développeur web, développeur web Paris, développeur web île-de-france, web, CV, site CV, site, application, application web, html5, css3, jquery, php, javascript"
+        },
+        {
+          "name": "og:type",
+          "attribute": "article",
+          "content": "Landing - Home Page"
+        },
+        {
+          "name": "og:title",
+          "attribute": "property",
+          "content": "Mon porfolio développeur Web, Frédérick AGATHE"
+        },
+        {
+          "name": "og:description",
+          "attribute": "property",
+          "content": "CV développeur Web : création et développement de sites et d'applications Web. HTML5, CSS3, JQuery, Javascript, Bootstrap, PHP, Symfony, ..."
+        }
+      ]
+    },
+    "contactPage": {
+      "title": "Contact Frédérick AGATHE",
+      "name": "Contact Frédérick AGATHE",
+      "url": "/",
+      "tags": [
+        {
+          "name": "description",
+          "attribute": "name",
+          "content": "Me contacter, Frédérick AGATHE"
+        },
+        {
+          "name": "keywords",
+          "attribute": "name",
+          "content": "Mon porfolio développeur Web, Frédérick AGATHE, Contact"
+        },
+        {
+          "name": "og:type",
+          "attribute": "article",
+          "content": "Landing - Contact Page"
+        },
+        {
+          "name": "og:title",
+          "attribute": "property",
+          "content": "Contact Frédérick AGATHE"
+        },
+        {
+          "name": "og:description",
+          "attribute": "property",
+          "content": "Mon porfolio développeur Web, Frédérick AGATHE, Contact"
+        }
+      ]
+    },
+    "defaultTags": [
+      {
+        "name": "author",
+        "attribute": "name",
+        "content": "Frédérick AGATHE"
+      },
+      {
+        "name": "robots",
+        "attribute": "name",
+        "content": "index, follow"
+      },
+      {
+        "name": "viewport",
+        "attribute": "name",
+        "content": "width=device-width, initial-scale=1."
+      }
+    ]
+  }
+]
